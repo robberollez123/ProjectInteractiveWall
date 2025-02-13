@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serial Port Website Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <a href="home.html" class="nav-title">Interactive Wall</a>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="games.html">Spellen</a></li>
+            <li><a href="#">Seriële connectie</a></li>
+            <li><a href="about.html">Over Ons</a></li>
+        </ul>
+    </nav>
+
+    <h1>Serial Port Website Test</h1>
+    <button id="connectButton">Connect</button>
+    <p id="connectionStatus">Not Connected</p> 
+    <p>Received Data: <span id="dataDisplay">None</span></p>
+
+    <!-- Data Table -->
+    <!-- Container voor de ingelezen data tabel -->
+    <div id="data-table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th id="sortTime" style="cursor: pointer;">Tijdstip</th>
+                    <th id="sortData" style="cursor: pointer;">Ontvangen Data</th>
+                </tr>
+            </thead>            
+            <tbody>
+                <!-- De rijen met data worden hier dynamisch toegevoegd -->
+            </tbody>
+        </table>
+        
+        <!-- Paginering -->
+        <div id="pagination">
+            <button id="prevPage" class="pagination-button" disabled>Vorige</button>
+            <span id="pageNumber">Pagina 1 van 1</span>
+            <button id="nextPage" class="pagination-button" disabled>Volgende</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
