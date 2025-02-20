@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+// Controleer of de gebruiker is ingelogd
+$ingelogd = isset($_SESSION["user"]);
+$adminUser = ($ingelogd && $_SESSION["user"] === "robberollez");
+
+// Databaseverbinding
+$link = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: " . mysqli_connect_error());
+
+// Controleer of het formulier is verzonden en of de gebruiker "robberollez" is
+if ($adminUser && isset($_POST["submit"])) {
+    if (!empty($_POST["naam"]) && !empty($_POST["link"])) {
+        // Gebruik prepared statements voor veiligheid
+        $query = "INSERT INTO spellen (naam, link) VALUES (?, ?)";
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $_POST["naam"], $_POST["link"]);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            $message = "<p class='success'>Spel succesvol toegevoegd!</p>";
+        } else {
+            $message = "<p class='error'>Fout bij toevoegen: " . mysqli_error($link) . "</p>";
+        }
+        
+        mysqli_stmt_close($stmt);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +37,7 @@
     <link rel="stylesheet" href="serialDataTable.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/login.css">
     <link rel="stylesheet" href="serialConnection.css">
 </head>
 <body>
@@ -16,10 +46,17 @@
         <nav>
             <a href="home.php" class="nav-title">Interactive Wall</a>
             <ul>
-                <li><a href="../NAV PAGES/PHP/home.php">Home</a></li>
-                <li><a href="../NAV PAGES/PHP/games.php">Spellen</a></li>
-                <li><a href="#">Seriele connectie</a></li>
-                <li><a href="../NAV PAGES/PHP/about.php">Over ons</a></li>
+            <li><a href="../NAV PAGES/PHP/home.php">Home</a></li>
+                <li><a href="../PHP/games.php">Spellen</a></li>
+                <?php if ($ingelogd): ?>
+                    <li><a href="#">Seriele connectie</a></li>
+                <?php endif; ?>
+                <?php if ($ingelogd): ?>
+                    <a href="../../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+                <?php else: ?>
+                    <a href="../../LOGIN/login.php" class="btn btn-login">Inloggen</a>
+                    <a href="../../LOGIN/register.php" class="btn btn-register">Registreren</a>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
