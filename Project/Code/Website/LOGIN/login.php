@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["password"] = $password;  // Optioneel, je zou ook enkel een sessie-id kunnen gebruiken
 
             // Stuur de gebruiker door naar de homepagina
-            header("Location: ../NAV PAGES/PHP/home.php");
+            header("Location: home.php");
             exit;
         } else {
             // Onjuist wachtwoord, toon een foutmelding
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="button-group">
                 <input type="submit" value="Login" class="btn-submit">
-                <a href="../NAV PAGES/PHP/home.php" class="btn-cancel">Annuleren</a>
+                <a href="home.php" class="btn-cancel">Annuleren</a>
             </div>
         </form>
     </div>

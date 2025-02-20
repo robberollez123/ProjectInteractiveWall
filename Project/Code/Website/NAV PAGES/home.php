@@ -55,10 +55,10 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="../CSS/nav.css">
-    <link rel="stylesheet" href="../CSS/headerStyle.css">
-    <link rel="stylesheet" href="../CSS/main.css">
-    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="headerStyle.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
     <header>
@@ -66,15 +66,15 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
             <a href="#" class="nav-title">Interactive Wall</a>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="../PHP/games.php">Spellen</a></li>
+                <li><a href="games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
-                    <li><a href="../../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                    <li><a href="serialconnection.php">Seriele connectie</a></li>
                 <?php endif; ?>
                 <?php if ($ingelogd): ?>
-                    <a href="../../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+                    <a href="logout.php" class="btn btn-logout">Uitloggen</a>
                 <?php else: ?>
-                    <a href="../../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                    <a href="../../LOGIN/register.php" class="btn btn-register">Registreren</a>
+                    <a href="login.php" class="btn btn-login">Inloggen</a>
+                    <a href="register.php" class="btn btn-register">Registreren</a>
                 <?php endif; ?>
             </ul>
         </nav>

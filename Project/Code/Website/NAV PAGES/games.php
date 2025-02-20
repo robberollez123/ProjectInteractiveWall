@@ -33,11 +33,11 @@ if ($adminUser && isset($_POST["submit"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spellen</title>
-    <link rel="stylesheet" href="../CSS/nav.css">
-    <link rel="stylesheet" href="../CSS/gamesTable.css">
-    <link rel="stylesheet" href="../CSS/headerStyle.css">
-    <link rel="stylesheet" href="../CSS/main.css">
-    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="gamesTable.css">
+    <link rel="stylesheet" href="headerStyle.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
     <header>
