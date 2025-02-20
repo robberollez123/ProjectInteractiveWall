@@ -1,0 +1,14 @@
+h1{
+    /*      TOP RIGHT BOTTOM LEFT */
+    margin: 5px 0px 5px 10px;
+    font-size: 35px;
+}
+
+h2{
+    font-size: 23px;
+}
+
+p{
+    margin: 5px 0px 5px 10px;
+    font-size: 18px;
+}

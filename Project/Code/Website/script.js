@@ -12,30 +12,6 @@ let dataQueue = []; // All received data stored here
 let sortByTimeAscending = true; // Track sort order for time
 let sortByDataAscending = true; // Track sort order for received data
 
-// Function to attempt auto-connect to COM7
-async function attemptAutoConnect() {
-    try {
-        // Get the list of available ports
-        const ports = await navigator.serial.getPorts();
-
-        // Try to find COM7 or a port with the name COM7
-        const com7Port = ports.find(p => p.name === "COM7");
-
-        // If COM7 is found, connect to it
-        if (com7Port) {
-            port = com7Port;
-            await port.open({ baudRate: 9600 });
-            connectButton.disabled = true; // Disable the button when connected
-            readSerialData();
-            updateConnectionStatus(true); // Update connection status to "connected"
-        } else {
-            console.log("COM7 not available. Waiting for manual connection.");
-        }
-    } catch (err) {
-        console.error("Auto-connect failed", err);
-    }
-}
-
 // Function to manually connect via button
 connectButton.addEventListener("click", async () => {
     try {

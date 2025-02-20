@@ -1,0 +1,64 @@
+/* Games Table Styling */
+.games-table {
+    width: 75%;
+    margin: 10px auto;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th {
+    padding: 12px;
+    background: #003366;
+    color: white;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background: #e6f0ff;
+}
+
+tbody tr:hover {
+    background: #cce0ff;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.game-button {
+    display: inline-block;
+    background: #00a2ff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.game-button:hover {
+    background: #0069d3;
+    cursor: pointer;
+}
+
+/* Toevoegingssectie */
+#add-game-container {
+    margin: 5px auto;
+    width: 75%;
+    padding: 15px;
+    background: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#add-game-container input {
+    padding: 8px;
+    width: 30%;
+    margin: 5px 5px 0px 0pgx;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}

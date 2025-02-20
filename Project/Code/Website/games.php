@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spellen</title>
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="gamesTable.css">
+    <link rel="stylesheet" href="headerStyle.css">
 </head>
 <body>
     <header>
@@ -20,45 +22,60 @@
         </nav>
     </header>
 
-    <h1>Spellen</h1>
+    <h1>Info</h1>
     <p>Hier kan je een spel uitkiezen. (Dit zijn voorbeeldspellen)</p>
-    
+
+    <h1>Voeg een nieuw spel toe</h2>
+
+    <div id="add-game-container">
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+            <input type="text" name="naam" placeholder="Vul de naam van het spel in..." required>
+            <input type="url" name="link" placeholder="Vul de link naar het spel in..." required>
+            <input class="game-button" type="submit" name="submit" value="Toevoegen">
+        </form>
+    </div>
+
+    <?php 
+        // Leg verbinding met de database
+        $link = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: " . mysqli_connect_error());
+
+        // Controleer of het formulier is verzonden
+        if (isset($_POST["submit"])) {
+            // Zorg ervoor dat de velden zijn ingevuld
+            if (!empty($_POST["naam"]) && !empty($_POST["link"])) {
+                // Voorkom SQL-injectie
+                $naam = mysqli_real_escape_string($link, $_POST["naam"]);
+                $spelLink = mysqli_real_escape_string($link, $_POST["link"]);
+
+                // Voer de query uit
+                $query = "INSERT INTO spellen (naam, link) VALUES ('$naam', '$spelLink')";
+                if (mysqli_query($link, $query)) {
+                    echo "<p>Spel succesvol toegevoegd!</p>";
+                } else {
+                    echo "<p>Fout bij toevoegen: " . mysqli_error($link) . "</p>";
+                }
+            }
+        }
+    ?>
+
+    <h1>Alle spellen</h1>
     <!-- Spellen Tabel -->
     <table class="games-table">
-        <thead>
-            <tr>
-                <th>Spelnaam</th>
-                <th>Actie</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Puzzle Challenge</td>
-                <td><a href="https://www.jigsawplanet.com/" class="game-button">Speel</a></td>
-            </tr>
-            <tr>
-                <td>Word Search</td>
-                <td><a href="https://api.razzlepuzzles.com/wordsearch?locale=nl" class="game-button">Speel</a></td>
-            </tr>
-            <tr>
-                <td>Memory Match</td>
-                <td><a href="https://www.memorymatching.com/" class="game-button">Speel</a></td>
-            </tr>
-            <tr>
-                <td>Tic-Tac-Toe</td>
-                <td><a href="https://playtictactoe.org/" class="game-button">Speel</a></td>
-            </tr>
-            <tr>
-                <td>Snake Game</td>
-                <td><a href="https://snake-game.io/" class="game-button">Speel</a></td>
-            </tr>
-            <tr>
-                <td>Sudoku</td>
-                <td><a href="https://sudoku.com/" class="game-button">Speel</a></td>
-            </tr>
-        </tbody>
-    </table>
+        <tr>
+            <th>Spelnaam</th>
+            <th>Actie</th>
+        </tr>
+        <?php
+            $result = mysqli_query($link, "SELECT * FROM spellen");
 
-    <script src="script.js"></script>
+            while ($record = mysqli_fetch_array($result)) {
+                echo "<tr>
+                        <td>{$record['naam']}</td>
+                        <td><a class='game-button' href=\"$record[link]\">Speel</a></td>
+                     </tr>";
+            }
+            
+        ?>
+    </table>
 </body>
 </html>

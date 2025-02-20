@@ -1,0 +1,83 @@
+#data-table-container {
+    font-family: Arial, sans-serif;
+    width: 50%; /* 50% width */
+    margin: 20px auto;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background: #004080; /* Donkerblauw */
+    color: white;
+    text-align: left;
+}
+
+thead th {
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+thead th:hover {
+    background: #0059b3; /* Iets lichtere blauw */
+}
+
+tbody tr:nth-child(even) {
+    background: #f2f6fc; /* Lichtblauw */
+}
+
+tbody tr:hover {
+    background: #d9e6fc; /* Nog lichtere blauw voor hover effect */
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Paginering styling */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.pagination-button {
+    background: #004080;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.pagination-button:disabled {
+    background: #b0c4de;
+    cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background: #0059b3;
+}
+
+/* Optional: Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    #data-table-container {
+        width: 80%; /* Adjust to 80% for smaller screens */
+    }
+}

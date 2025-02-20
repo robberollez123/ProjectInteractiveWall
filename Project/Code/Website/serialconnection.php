@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SerialPort Website Test</title>
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="serialDataTable.css">
+    <link rel="stylesheet" href="headerStyle.css">
+    <link rel="stylesheet" href="serialConnection.css">
 </head>
 <body>
     <header>
@@ -21,14 +24,16 @@
     </header>
 
     <h1>Serial Port Website Test</h1>
-    <button id="connectButton">Connect</button>
-    <p id="connectionStatus">Not Connected</p> 
-    <p>Received Data: <span id="dataDisplay">None</span></p>
 
+    <div class="container">
+        <button id="connectButton">Connect</button>
+        <div id="connectionStatus">Status: Connected</div>
+        <div id="receivedData">Received Data: <span id="dataDisplay">None</span></div>
+    </div>
     <!-- Data Table -->
     <!-- Container voor de ingelezen data tabel -->
     <div id="data-table-container">
-        <table id="dataTable">
+        <table>
             <thead>
                 <tr>
                     <th id="sortTime" style="cursor: pointer;">Tijdstip</th>
