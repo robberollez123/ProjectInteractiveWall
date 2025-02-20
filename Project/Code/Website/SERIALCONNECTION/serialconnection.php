@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SerialPort Website Test</title>
-    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
     <link rel="stylesheet" href="serialDataTable.css">
-    <link rel="stylesheet" href="headerStyle.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
     <link rel="stylesheet" href="serialConnection.css">
 </head>
 <body>
@@ -15,10 +16,10 @@
         <nav>
             <a href="home.php" class="nav-title">Interactive Wall</a>
             <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="games.php">Spellen</a></li>
-                <li><a href="#">Seriële connectie</a></li>
-                <li><a href="about.php">Over ons</a></li>
+                <li><a href="../NAV PAGES/PHP/home.php">Home</a></li>
+                <li><a href="../NAV PAGES/PHP/games.php">Spellen</a></li>
+                <li><a href="#">Seriele connectie</a></li>
+                <li><a href="../NAV PAGES/PHP/about.php">Over ons</a></li>
             </ul>
         </nav>
     </header>
@@ -27,7 +28,7 @@
 
     <div class="container">
         <button id="connectButton">Connect</button>
-        <div id="connectionStatus">Status: Connected</div>
+        <div id="connectionStatus">Status: Not connected</div>
         <div id="receivedData">Received Data: <span id="dataDisplay">None</span></div>
     </div>
     <!-- Data Table -->
@@ -54,6 +55,9 @@
     </div>
 
 
+    
+    <footer>&copy; Vives 2025 - Interactive Wall</footer>
     <script src="script.js"></script>
+
 </body>
 </html>

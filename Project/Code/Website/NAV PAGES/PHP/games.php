@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spellen</title>
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="gamesTable.css">
-    <link rel="stylesheet" href="headerStyle.css">
+    <link rel="stylesheet" href="../CSS/nav.css">
+    <link rel="stylesheet" href="../CSS/gamesTable.css">
+    <link rel="stylesheet" href="../CSS/headerStyle.css">
+    <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
     <header>
@@ -14,10 +15,10 @@
         <nav>
             <a href="home.php" class="nav-title">Interactive Wall</a>
             <ul>
-                <li><a href="home.php">Home</a></li>
+                <li><a href="../PHP/home.php">Home</a></li>
                 <li><a href="#">Spellen</a></li>
-                <li><a href="serialconnection.php">Seriële connectie</a></li>
-                <li><a href="about.php">Over ons</a></li>
+                <li><a href="../../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                <li><a href="../PHP/about.php">Over ons</a></li>
             </ul>
         </nav>
     </header>
@@ -77,5 +78,8 @@
             
         ?>
     </table>
+
+    <footer>&copy; Vives 2025 - Interactive Wall</footer>
+
 </body>
 </html>

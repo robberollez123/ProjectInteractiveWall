@@ -52,6 +52,17 @@ int main(void)
 	// Oneindige lus starten.
 	while (1)
 	{	
+		if(SW1Active()){
+			StringToUsart2("JELLE");
+			ByteToLeds(255);
+		}
+				else
+		{
+			WaitForMs(100);
+			count++;
+			ByteToLeds(count);
+		}
+		
 		// Touch statussen inlezen van de MPR121 via I²C.
 		touchStatus = Mpr121GetTouchStatus();		
 		if(touchStatus != touchStatusOld)
