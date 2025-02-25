@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["user"] = $username;
 
         // Gebruiker wordt doorgestuurd naar de homepagina na succesvolle registratie
-        header("Location: ../NAV PAGES/PHP/home.php");
+        header("Location: ../home.php");
         exit;
     } else {
         $error_message = "De wachtwoorden komen niet overeen!";
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="button-group">
                 <input type="submit" value="Registreren" class="btn-submit">
-                <a href="../NAV PAGES/PHP/home.php" class="btn-cancel">Annuleren</a>
+                <a href="../home.php" class="btn-cancel">Annuleren</a>
             </div>
         </form>
     </div>

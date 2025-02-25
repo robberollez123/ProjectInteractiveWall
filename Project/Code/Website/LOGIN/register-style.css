@@ -1,99 +1,132 @@
-/* Algemene reset voor marges en padding */
+/* Algemene reset en basisstijl */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Achtergrond */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f3f4f6;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    color: #333;
 }
 
-/* Container voor de registratiebox */
+/* Registreren container */
 .register-container {
-    background-color: white;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
     text-align: center;
+    animation: fadeIn 0.8s ease-out; /* Subtiele fade-in animatie */
 }
 
+/* Fade-in animatie */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Titel */
 h2 {
-    color: #d32f2f; /* Rood kleur voor de titel */
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #333;
 }
 
-/* Stijl voor invoervelden */
+/* Foutmelding */
+.error {
+    color: #e74c3c;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* Formulier velden */
 .input-group {
     margin-bottom: 20px;
     text-align: left;
 }
 
 .input-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
     display: block;
-    color: #333;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #555;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 12px;
     border: 2px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border 0.3s ease;
 }
 
 .input-group input:focus {
-    border-color: #d32f2f;
+    border-color: #6c63ff; /* Violetta tint bij focus */
     outline: none;
-}
-
-/* Foutmelding */
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 15px;
 }
 
 /* Knoppen */
 .button-group {
-    display: flex;
-    justify-content: space-between;
+    margin-top: 30px;
 }
 
 .btn-submit {
-    background-color: #d32f2f;
-    color: white;
-    padding: 10px 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #6c63ff;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    color: #fff;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .btn-submit:hover {
-    background-color: #c62828;
+    background-color: #4e46c1;
 }
 
+/* Annuleerknop */
 .btn-cancel {
-    background-color: #ddd;
-    color: #333;
-    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 10px;
+    color: #6c63ff;
+    font-size: 1rem;
     text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    padding: 8px;
 }
 
 .btn-cancel:hover {
-    background-color: #bbb;
+    text-decoration: underline;
+}
+
+/* Responsief ontwerp voor mobiele schermen */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 20px;
+        width: 80%;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
 }

@@ -32,30 +32,34 @@ if ($adminUser && isset($_POST["submit"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spellen</title>
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="gamesTable.css">
-    <link rel="stylesheet" href="headerStyle.css">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="login.css">
+    <title>Spellen | Interactive Wall</title>
+    <link rel="stylesheet" href="../CSS/nav.css">
+    <link rel="stylesheet" href="../CSS/gamesTable.css">
+    <link rel="stylesheet" href="../CSS/headerStyle.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/login.css">
 </head>
 <body>
-    <header>
+<header>
         <nav>
-            <a href="home.php" class="nav-title">Interactive Wall</a>
-            <ul>
-            <li><a href="../PHP/home.php">Home</a></li>
+            <a href="../../home.php" class="nav-title">Interactive Wall</a>
+            <button class="menu-toggle">&#9776;</button>
+            <ul class="nav-links">
+                <li><a href="../../home.php">Home</a></li>
                 <li><a href="#">Spellen</a></li>
                 <?php if ($ingelogd): ?>
                     <li><a href="../../SERIALCONNECTION/serialconnection.php">Seriële connectie</a></li>
                 <?php endif; ?>
+            </ul>
+            <div class="nav-buttons">
                 <?php if ($ingelogd): ?>
+                    <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
                     <a href="../../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
                 <?php else: ?>
                     <a href="../../LOGIN/login.php" class="btn btn-login">Inloggen</a>
                     <a href="../../LOGIN/register.php" class="btn btn-register">Registreren</a>
                 <?php endif; ?>
-            </ul>
+            </div>
         </nav>
     </header>
 
@@ -72,8 +76,6 @@ if ($adminUser && isset($_POST["submit"])) {
             </form>
         </div>
         <?php if (isset($message)) echo $message; ?>
-    <?php elseif ($ingelogd): ?>
-        <p class="error">Je hebt geen rechten om spellen toe te voegen.</p>
     <?php endif; ?>
 
     <h1>Alle spellen</h1>
@@ -94,5 +96,7 @@ if ($adminUser && isset($_POST["submit"])) {
     </table>
 
     <footer>&copy; Vives 2025 - Interactive Wall</footer>
+
+    <script src="../SCRIPTS/nav.js" defer></script>
 </body>
 </html>

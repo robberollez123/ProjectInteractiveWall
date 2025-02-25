@@ -1,4 +1,38 @@
 footer{
     text-align: center;
     font-size: 1.2em;
+    background-color: #4b64a9;
+    padding: 30px 20px;
+    color: white;
 }
+
+.welcome-message {
+    font-size: 2rem;
+    font-family: Arial, sans-serif;
+    display: inline-block;
+    white-space: nowrap; /* Voorkomt afbreken van de tekst */
+}
+
+/* Algemene stijl voor de geanimeerde letters */
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+/* Voeg animatie toe voor de spaties */
+.space {
+    display: inline-block;
+    width: 10px; /* Pas de breedte aan naar wens */
+}
+
+/* Animatie voor letters */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
