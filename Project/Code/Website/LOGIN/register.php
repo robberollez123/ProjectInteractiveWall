@@ -1,62 +1,68 @@
 <?php
 session_start();
 
-// Wanneer het formulier wordt verzonden, verwerken we de gegevens
+require_once __DIR__ . '/../config/database.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $username = trim($_POST["username"]);
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirmPassword"];
 
-    // Controleren of wachtwoorden overeenkomen
-    if ($password == $confirmPassword) {
-        // Hash het wachtwoord
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Maak verbinding met de database
-        $link = mysqli_connect("localhost", "root", "", "interactivewall");
-
-        // Controleer of de verbinding gelukt is
-        if (!$link) {
-            die("Databaseverbinding mislukt: " . mysqli_connect_error());
-        }
-
-        // Voeg de gebruiker toe aan de database met gehashte wachtwoord
-        $query = "INSERT INTO gebruiker (gebruikersnaam, wachtwoord) VALUES ('$username', '$hashedPassword')";
-        mysqli_query($link, $query);
-
-        // Sluit de databaseverbinding
-        mysqli_close($link);
-
-        // Zet de sessie in voor de gebruiker
-        $_SESSION["user"] = $username;
-
-        // Gebruiker wordt doorgestuurd naar de homepagina na succesvolle registratie
-        header("Location: ../home.php");
-        exit;
-    } else {
+    if (empty($username) || empty($password) || empty($confirmPassword)) {
+        $error_message = "Vul alle velden in!";
+    } elseif ($password !== $confirmPassword) {
         $error_message = "De wachtwoorden komen niet overeen!";
+    } else {
+        // Controleer of de gebruikersnaam al bestaat
+        $query = "SELECT id FROM gebruiker WHERE gebruikersnaam = ?";
+        $stmt = mysqli_prepare($linkDB, $query);
+        mysqli_stmt_bind_param($stmt, "s", $username);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            $error_message = "Deze gebruikersnaam is al in gebruik!";
+        } else {
+            // Hash het wachtwoord en voeg de gebruiker toe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO gebruiker (gebruikersnaam, wachtwoord) VALUES (?, ?)";
+            $stmt = mysqli_prepare($linkDB, $query);
+            mysqli_stmt_bind_param($stmt, "ss", $username, $hashedPassword);
+
+            if (mysqli_stmt_execute($stmt)) {
+                $_SESSION["user"] = $username;
+                header("Location: ../home.php");
+                exit;
+            } else {
+                $error_message = "Registratie mislukt. Probeer opnieuw.";
+            }
+        }
+        mysqli_stmt_close($stmt);
     }
+    mysqli_close($linkDB);
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registreren</title>
     <link rel="stylesheet" href="register-style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="register-container">
         <h2>Registreren</h2>
         <?php if (isset($error_message)): ?>
-            <p class="error"><?php echo $error_message; ?></p>
+            <p class="error"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="input-group">
                 <label for="username">Gebruikersnaam:</label>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="username" id="username" required onkeyup="checkUsername()">
+                <span id="username-status"></span>
             </div>
             <div class="input-group">
                 <label for="password">Wachtwoord:</label>
@@ -72,5 +78,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+
+    <script>
+        function checkUsername() {
+            let username = document.getElementById("username").value;
+            if (username.length > 2) {
+                $.post("check_username.php", { username: username }, function (data) {
+                    $("#username-status").html(data);
+                });
+            } else {
+                $("#username-status").html("");
+            }
+        }
+    </script>
 </body>
 </html>

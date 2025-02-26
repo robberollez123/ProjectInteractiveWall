@@ -7,16 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     // Maak verbinding met de database
-    $link = mysqli_connect("localhost", "root", "", "interactivewall");
-
-    // Controleer of de verbinding is gelukt
-    if (!$link) {
-        die("Databaseverbinding mislukt: " . mysqli_connect_error());
-    }
+    require_once __DIR__ . 'config/database.php';
 
     // Gebruik prepared statements om SQL-injectie te voorkomen
     $query = "SELECT * FROM gebruiker WHERE gebruikersnaam = ?";
-    $stmt = mysqli_prepare($link, $query);
+    $stmt = mysqli_prepare($linkDB, $query);
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -39,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Sluit de databaseverbinding
     mysqli_stmt_close($stmt);
-    mysqli_close($link);
+    mysqli_close($linkDB);
 }
 
 // Controleer of de gebruiker is ingelogd
@@ -53,11 +48,11 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Interactive Wall</title>
-    <link rel="stylesheet" href="NAV PAGES/CSS/nav.css">
-    <link rel="stylesheet" href="NAV PAGES/CSS/headerStyle.css">
-    <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
-    <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
-    <link rel="stylesheet" href="NAV PAGES/CSS/home.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/login.css">
+    <link rel="stylesheet" href="../NAV PAGES/CSS/home.css">
 </head>
 <body>
     <header>
@@ -66,19 +61,19 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
             <button class="menu-toggle">&#9776;</button>
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
-                <li><a href="NAV PAGES/PHP/games.php">Spellen</a></li>
+                <li><a href="games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
-                    <li><a href="SERIALCONNECTION/serialconnection.php">Seriële connectie</a></li>
+                    <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
                 <?php endif; ?>
             </ul>
             <div class="nav-buttons">
                 <?php if ($ingelogd): ?>
                     <!-- Gebruikersnaam als badge -->
                     <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
-                    <a href="LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+                    <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
                 <?php else: ?>
-                    <a href="LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                    <a href="LOGIN/register.php" class="btn btn-register">Registreren</a>
+                    <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
+                    <a href="../LOGIN/register.php" class="btn btn-register">Registreren</a>
                 <?php endif; ?>
             </div>
         </nav>
@@ -131,6 +126,6 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
         &copy; Vives 2025 - Interactive Wall
     </footer>
 
-    <script src="NAV PAGES/SCRIPTS/nav.js" defer></script>
+    <script src="../NAV PAGES/SCRIPTS/nav.js" defer></script>
     </body>
 </html>

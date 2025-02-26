@@ -30,19 +30,62 @@ td {
     border-bottom: 1px solid #ccc;
 }
 
+/* Verandering: Flexbox voor knoppen naast elkaar */
+td.action-buttons {
+    display: flex; /* Zorgt ervoor dat knoppen naast elkaar staan */
+    gap: 10px; /* Ruimte tussen de knoppen */
+    justify-content: center; /* Zorgt ervoor dat knoppen gecentreerd worden */
+}
+
+/* Algemene stijl voor de knoppen */
 .game-button {
     display: inline-block;
-    background: #00a2ff;
+    background-color: rgb(67, 67, 251);
     color: white;
+    cursor: pointer;
     padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
     transition: 0.3s;
+    font-weight: bold;
 }
 
+.game-button:hover{
+    background-color: rgb(42, 42, 171);
+}
+
+/* Kleuren voor knoppen */
+.game-button.play {
+    background: #4CAF50; /* Groene kleur voor de Speel-knop */
+    color: white;
+}
+
+.game-button.edit {
+    background: #FFA500; /* Oranje kleur voor de Wijzig-knop */
+    color: white;
+}
+
+.game-button.delete {
+    background: #f44336; /* Rode kleur voor de Verwijder-knop */
+    color: white;
+}
+
+/* Hover-effecten voor knoppen */
 .game-button:hover {
-    background: #0069d3;
-    cursor: pointer;
+    opacity: 0.8;
+}
+
+/* Specifieke hoverkleuren voor elke knop */
+.game-button.play:hover {
+    background: #45a049;
+}
+
+.game-button.edit:hover {
+    background: #e68900;
+}
+
+.game-button.delete:hover {
+    background: #d32f2f;
 }
 
 /* Toevoegingssectie */
@@ -58,7 +101,55 @@ td {
 #add-game-container input {
     padding: 8px;
     width: 30%;
-    margin: 5px 5px 0px 0pgx;
+    margin: 5px 5px 0px 0;
     border: 1px solid #ccc;
     border-radius: 10px;
+}
+
+/* Responsive aanpassingen */
+
+/* Voor schermen kleiner dan 768px */
+@media (max-width: 768px) {
+    .games-table {
+        width: 100%; /* Tabel neemt de volledige breedte in op kleinere schermen */
+    }
+
+    th, td {
+        padding: 8px; /* Verminderde padding voor kleinere schermen */
+    }
+
+    td.action-buttons {
+        flex-direction: column; /* Knoppen stapelen zich onder elkaar */
+        gap: 5px; /* Kleinere gap tussen de knoppen */
+    }
+
+    #add-game-container {
+        width: 90%; /* Toevoegingselement neemt 90% van het scherm in */
+        padding: 10px; /* Kleinere padding voor kleine schermen */
+    }
+
+    #add-game-container input {
+        width: 100%; /* Zorgt ervoor dat de invoervelden de breedte van het scherm innemen */
+    }
+}
+
+/* Voor schermen kleiner dan 480px */
+@media (max-width: 480px) {
+    .games-table {
+        font-size: 14px; /* Verklein de tekstgrootte op kleinere schermen */
+    }
+
+    th, td {
+        padding: 6px; /* Nog kleinere padding voor heel kleine schermen */
+    }
+
+    td.action-buttons {
+        flex-direction: column; /* Knoppen stapelen zich onder elkaar */
+        gap: 5px;
+    }
+
+    #add-game-container {
+        width: 100%; /* Volledige breedte voor toevoeging */
+        padding: 8px;
+    }
 }

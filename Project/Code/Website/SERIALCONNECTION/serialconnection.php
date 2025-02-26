@@ -3,23 +3,23 @@ session_start();
 
 // Controleer of de gebruiker is ingelogd
 $ingelogd = isset($_SESSION["user"]);
-$adminUser = ($ingelogd && $_SESSION["user"] === "robberollez");
+$adminUser = ($ingelogd && in_array($_SESSION["user"], ["robbe-admin", "jelle-admin"]));
 
 // Databaseverbinding
-$link = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: " . mysqli_connect_error());
+require_once __DIR__ . '/../config/database.php';
 
-// Controleer of het formulier is verzonden en of de gebruiker "robberollez" is
+// Controleer of het formulier is verzonden en of de gebruiker een admin is
 if ($adminUser && isset($_POST["submit"])) {
     if (!empty($_POST["naam"]) && !empty($_POST["link"])) {
         // Gebruik prepared statements voor veiligheid
         $query = "INSERT INTO spellen (naam, link) VALUES (?, ?)";
-        $stmt = mysqli_prepare($link, $query);
+        $stmt = mysqli_prepare($linkDB, $query);
         mysqli_stmt_bind_param($stmt, "ss", $_POST["naam"], $_POST["link"]);
         
         if (mysqli_stmt_execute($stmt)) {
             $message = "<p class='success'>Spel succesvol toegevoegd!</p>";
         } else {
-            $message = "<p class='error'>Fout bij toevoegen: " . mysqli_error($link) . "</p>";
+            $message = "<p class='error'>Fout bij toevoegen: " . mysqli_error($linkDB) . "</p>";
         }
         
         mysqli_stmt_close($stmt);
@@ -47,9 +47,9 @@ if ($adminUser && isset($_POST["submit"])) {
             <button class="menu-toggle">&#9776;</button>
             <ul class="nav-links">
                 <li><a href="../home.php">Home</a></li>
-                <li><a href="../NAV PAGES/PHP/games.php">Spellen</a></li>
+                <li><a href="../games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
-                    <li><a href="#">Seriële connectie</a></li>
+                    <li><a href="#">Seriele connectie</a></li>
                 <?php endif; ?>
             </ul>
             <div class="nav-buttons">

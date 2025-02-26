@@ -7,16 +7,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     // Verbinding maken met de database
-    $link = mysqli_connect("localhost", "root", "", "interactivewall");
+    require_once __DIR__ . '/../config/database.php';
     
     // Controleren of de verbinding gelukt is
-    if (!$link) {
+    if (!$linkDB) {
         die("Databaseverbinding mislukt: " . mysqli_connect_error());
     }
 
     // Zoek naar de gebruiker in de database
     $query = "SELECT * FROM gebruiker WHERE gebruikersnaam = '$username'";
-    $result = mysqli_query($link, $query);
+    $result = mysqli_query($linkDB, $query);
     
     // Als er een gebruiker wordt gevonden, controleer het wachtwoord met password_verify
     if (mysqli_num_rows($result) > 0) {
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Sluit de databaseverbinding
-    mysqli_close($link);
+    mysqli_close($linkDB);
 }
 
 ?>

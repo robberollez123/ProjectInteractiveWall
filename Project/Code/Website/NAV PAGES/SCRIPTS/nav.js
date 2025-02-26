@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Wacht tot de animatie klaar is, en herstart dan
-        setTimeout(animateText, text.length * 110 + 800); // Wacht tijd = letters + extra pauze
+        //setTimeout(animateText, text.length * 110 + 800); // Wacht tijd = letters + extra pauze
     }
 
     animateText(); // Start de animatie bij het laden
