@@ -111,8 +111,8 @@ td.action-buttons {
 /* Voor schermen kleiner dan 768px */
 @media (max-width: 768px) {
     .games-table {
-        width: 100%; /* Tabel neemt de volledige breedte in op kleinere schermen */
-    }
+        width: 90%;
+        margin: 0 auto;    }
 
     th, td {
         padding: 8px; /* Verminderde padding voor kleinere schermen */
@@ -129,7 +129,7 @@ td.action-buttons {
     }
 
     #add-game-container input {
-        width: 100%; /* Zorgt ervoor dat de invoervelden de breedte van het scherm innemen */
+        width: 90%; /* Zorgt ervoor dat de invoervelden de breedte van het scherm innemen */
     }
 }
 
@@ -137,6 +137,8 @@ td.action-buttons {
 @media (max-width: 480px) {
     .games-table {
         font-size: 14px; /* Verklein de tekstgrootte op kleinere schermen */
+        width: 90%;
+        margin: 0 auto;
     }
 
     th, td {
@@ -149,7 +151,7 @@ td.action-buttons {
     }
 
     #add-game-container {
-        width: 100%; /* Volledige breedte voor toevoeging */
+        width: 90%; /* Volledige breedte voor toevoeging */
         padding: 8px;
     }
 }

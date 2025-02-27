@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$ingelogd = isset($_SESSION["user"]);
+$adminUser = ($ingelogd && in_array($_SESSION["user"], ["robbe-admin", "jelle-admin"]));
+
 // Controleer of het formulier is ingediend
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["user"];
@@ -64,6 +67,10 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
                 <li><a href="games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
                     <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                    <li><a href="feedback.php">Feedback</a></li>
+                <?php endif; ?>
+                <?php if ($adminUser): ?>
+                    <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
                 <?php endif; ?>
             </ul>
             <div class="nav-buttons">
@@ -73,12 +80,10 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
                     <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
                 <?php else: ?>
                     <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                    <a href="../LOGIN/register.php" class="btn btn-register">Registreren</a>
                 <?php endif; ?>
             </div>
         </nav>
     </header>
-
 
     <main>
         <h1 class="welcome-message <?php echo $ingelogd ? 'logged-in' : 'logged-out'; ?>">
@@ -88,39 +93,37 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
         <?php if (isset($error_message)): ?>
             <p class="error"> <?php echo htmlspecialchars($error_message, ENT_QUOTES, 'UTF-8'); ?> </p>
         <?php endif; ?>
-
         <section class="info-card">
-            <h2>Welkom bij de Interactive Wall!</h2>
-            <p>De <strong>Interactive Wall</strong> is een educatief spelplatform ontworpen voor kleuters van het derde jaar. 
-               Met capacitieve drukknoppen kunnen kinderen spelenderwijs leren en hun motorische vaardigheden ontwikkelen.</p>
-        </section>
+                <h2>Welkom bij de Interactive Wall!</h2>
+                <p>De <strong>Interactive Wall</strong> is een educatief spelplatform ontworpen voor kleuters van het derde jaar. 
+                Met capacitieve drukknoppen kunnen kinderen spelenderwijs leren en hun motorische vaardigheden ontwikkelen.</p>
+            </section>
 
-        <section class="info-card">
-            <h2>Hoe werkt het?</h2>
-            <p>De Interactive Wall bestaat uit 12 drukknoppen waarop afbeeldingen kunnen worden geplakt. 
-               De knoppen zijn gekoppeld aan een website op een <strong>Raspberry Pi 5</strong>, verbonden met een scherm. 
-               Kinderen kunnen reageren op de spelletjes door op de juiste knoppen te drukken.</p>
-        </section>
+            <section class="info-card">
+                <h2>Hoe werkt het?</h2>
+                <p>De Interactive Wall bestaat uit 12 drukknoppen waarop afbeeldingen kunnen worden geplakt. 
+                De knoppen zijn gekoppeld aan een website op een <strong>Raspberry Pi 5</strong>, verbonden met een scherm. 
+                Kinderen kunnen reageren op de spelletjes door op de juiste knoppen te drukken.</p>
+            </section>
 
-        <section class="info-card">
-            <h2>Voor leerkrachten</h2>
-            <p>Leerkrachten kunnen <strong>zelf spelletjes toevoegen</strong> via de website, zodat de Interactive Wall 
-               aangepast kan worden aan de lesinhoud. Elk spel heeft een korte uitleg voor de kinderen.</p>
-        </section>
+            <section class="info-card">
+                <h2>Voor leerkrachten</h2>
+                <p>Leerkrachten kunnen <strong>zelf spelletjes toevoegen</strong> via de website, zodat de Interactive Wall 
+                aangepast kan worden aan de lesinhoud. Elk spel heeft een korte uitleg voor de kinderen.</p>
+            </section>
 
-        <section class="info-card">
-            <h2>De technologie achter het project</h2>
-            <p>Dit project is ontwikkeld door vijf studenten van de <strong>Hogeschool VIVES</strong> in het kader van het vak <strong>Project</strong>. 
-               Het team bestaat uit:</p>
-            <ul>
-                <li>2 ICT-studenten - ontwikkeling van de website en software</li>
-                <li>2 Elektronica-studenten - ontwikkeling van de hardware en knoppen</li>
-                <li>1 AI-student - onderzoek naar slimme interacties</li>
-            </ul>
-        </section>
-
-        <p class="stay-updated">Blijf op de hoogte en ontdek binnenkort de eerste spelletjes!</p>
-    </main>
+            <section class="info-card">
+                <h2>De technologie achter het project</h2>
+                <p>Dit project is ontwikkeld door vijf studenten van de <strong>Hogeschool VIVES</strong> in het kader van het vak <strong>Project</strong>. 
+                Het team bestaat uit:</p>
+                <ul>
+                    <li>2 ICT-studenten - ontwikkeling van de website en software</li>
+                    <li>2 Elektronica-studenten - ontwikkeling van de hardware en knoppen</li>
+                    <li>1 AI-student - onderzoek naar slimme interacties</li>
+                </ul>
+            </section>
+            <p class="stay-updated">Blijf op de hoogte en ontdek binnenkort de eerste spelletjes!</p>
+        </main>
 
     <footer>
         &copy; Vives 2025 - Interactive Wall

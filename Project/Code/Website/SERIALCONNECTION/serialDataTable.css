@@ -75,6 +75,30 @@ td {
     background: #0059b3;
 }
 
+.reset-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.reset-button:hover {
+    background-color: #cc0000;
+}
+
+.reset-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
 /* Optional: Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
     #data-table-container {

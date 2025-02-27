@@ -35,4 +35,14 @@ footer{
     }
 }
 
+@media (max-width: 768px) {
+    .welcome-message{
+        font-size: 2rem;
+    }
+}
 
+@media (max-width: 768px) {
+    .welcome-message{
+        font-size: 1.5rem;
+    }
+}

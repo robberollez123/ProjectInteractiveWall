@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../home.php");
                 exit;
             } else {
-                $error_message = "Registratie mislukt. Probeer opnieuw.";
+                $error_message = "Account toevoegen mislukt. Probeer opnieuw.";
             }
         }
         mysqli_stmt_close($stmt);
@@ -48,13 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registreren</title>
-    <link rel="stylesheet" href="register-style.css">
+    <title>Account toevoegen</title>
+    <link rel="stylesheet" href="add-account-style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="register-container">
-        <h2>Registreren</h2>
+        <h2>Account toevoegen</h2>
         <?php if (isset($error_message)): ?>
             <p class="error"><?php echo htmlspecialchars($error_message); ?></p>
         <?php endif; ?>

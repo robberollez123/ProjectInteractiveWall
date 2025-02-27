@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashedPassword)) {
             // Stel de sessiegegevens in en log de gebruiker in
             $_SESSION["user"] = $username;
-            $_SESSION["password"] = $password;  // Optioneel, je zou ook enkel een sessie-id kunnen gebruiken
+            $_SESSION["password"] = $password;  
 
             // Stuur de gebruiker door naar de homepagina
             header("Location: ../home.php");

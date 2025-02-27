@@ -62,6 +62,10 @@ if ($adminUser && isset($_GET["delete"])) {
             <li><a href="#">Spellen</a></li>
             <?php if ($ingelogd): ?>
                 <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                <li><a href="feedback.php">Feedback</a></li>
+            <?php endif; ?>
+            <?php if ($adminUser): ?>
+                <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
             <?php endif; ?>
         </ul>
         <div class="nav-buttons">
@@ -70,7 +74,6 @@ if ($adminUser && isset($_GET["delete"])) {
                 <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
             <?php else: ?>
                 <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                <a href="../LOGIN/register.php" class="btn btn-register">Registreren</a>
             <?php endif; ?>
         </div>
     </nav>
@@ -92,34 +95,33 @@ if ($adminUser && isset($_GET["delete"])) {
 <?php endif; ?>
 
 <h1>Spellen</h1>
-<table class="games-table">
-    <tr>
-        <th>Spelnaam</th>
-        <th></th>
-        <?php if ($adminUser): ?>
-            <!-- De wijzig- en verwijderknoppen komen naast de speelknop -->
-        <?php endif; ?>
-    </tr>
-    <?php
-        $result = mysqli_query($linkDB, "SELECT * FROM spellen");
-        while ($record = mysqli_fetch_array($result)) {
-            echo "<tr>
-                    <td>{$record['naam']}</td>
-                    <td class='action-buttons'>
-                        <a class='game-button play' href=\"{$record['link']}\" target='_blank'>Speel</a>";
+    <table class="games-table">
+        <tr>
+            <th>Spelnaam</th>
+            <th></th>
+            <?php if ($adminUser): ?>
+                <!-- De wijzig- en verwijderknoppen komen naast de speelknop -->
+            <?php endif; ?>
+        </tr>
+        <?php
+            $result = mysqli_query($linkDB, "SELECT * FROM spellen");
+            while ($record = mysqli_fetch_array($result)) {
+                echo "<tr>
+                        <td>{$record['naam']}</td>
+                        <td class='action-buttons'>
+                            <a class='game-button play' href=\"{$record['link']}\" target='_blank'>Speel</a>";
 
-            if ($adminUser) {
-                // Wijzig- en verwijderknoppen komen hier
-                echo "<a class='game-button edit' href=\"change-game.php?id={$record['id']}\">Wijzig</a>
-                      <a class='game-button delete' href=\"?delete={$record['id']}\" onclick='return confirm(\"Weet je zeker dat je dit spel wilt verwijderen?\")'>Verwijder</a>";
+                if ($adminUser) {
+                    // Wijzig- en verwijderknoppen komen hier
+                    echo "<a class='game-button edit' href=\"change-game.php?id={$record['id']}\">Wijzig</a>
+                        <a class='game-button delete' href=\"?delete={$record['id']}\" onclick='return confirm(\"Weet je zeker dat je dit spel wilt verwijderen?\")'>Verwijder</a>";
+                }
+                
+                echo "</td>
+                    </tr>";
             }
-            
-            echo "</td>
-                  </tr>";
-        }
-    ?>
-</table>
-
+        ?>
+    </table>
 <footer>&copy; Vives 2025 - Interactive Wall</footer>
 
 <script src="../NAV PAGES/SCRIPTS/nav.js" defer></script>

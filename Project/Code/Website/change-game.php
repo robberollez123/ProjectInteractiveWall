@@ -81,7 +81,6 @@ mysqli_close($linkDB);
                 <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
             <?php else: ?>
                 <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                <a href="../LOGIN/register.php" class="btn btn-register">Registreren</a>
             <?php endif; ?>
         </div>
     </nav>

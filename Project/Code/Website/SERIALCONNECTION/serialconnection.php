@@ -32,7 +32,7 @@ if ($adminUser && isset($_POST["submit"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SerialPort Website Test</title>
+    <title>Data test | Interactive Wall</title>
     <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
     <link rel="stylesheet" href="serialDataTable.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
@@ -50,6 +50,10 @@ if ($adminUser && isset($_POST["submit"])) {
                 <li><a href="../games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
                     <li><a href="#">Seriele connectie</a></li>
+                    <li><a href="../feedback.php">Feedback</a></li>
+                <?php endif; ?>
+                <?php if ($adminUser): ?>
+                    <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
                 <?php endif; ?>
             </ul>
             <div class="nav-buttons">
@@ -58,18 +62,18 @@ if ($adminUser && isset($_POST["submit"])) {
                     <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
                 <?php else: ?>
                     <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                    <a href="../LOGIN/register.php" class="btn btn-register">Registreren</a>
                 <?php endif; ?>
             </div>
         </nav>
     </header>
 
-    <h1>Serial Port Website Test</h1>
+    <h1>Test het ontvangen van data van de seriele poort.</h1>
 
     <div class="container">
         <button id="connectButton">Connect</button>
         <div id="connectionStatus">Status: Not connected</div>
         <div id="receivedData">Received Data: <span id="dataDisplay">None</span></div>
+        <button id="resetButton" class="pagination-button" disabled>Reset</button>
     </div>
     <!-- Data Table -->
     <!-- Container voor de ingelezen data tabel -->
