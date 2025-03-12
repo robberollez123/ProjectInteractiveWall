@@ -4,11 +4,11 @@ require_once __DIR__ . '/config/database.php';
 
 // Controleer of de gebruiker is ingelogd en admin is
 $ingelogd = isset($_SESSION["user"]);
-$adminUser = ($ingelogd && in_array($_SESSION["user"], ["robbe-admin", "jelle-admin"]));
+$adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; 
 
 // Zorg ervoor dat het spel-ID aanwezig is
 if (!$adminUser || !isset($_GET["id"])) {
-    header("Location: spellen.php"); // Terugsturen naar de spellenpagina als de gebruiker geen admin is of geen id heeft opgegeven
+    header("Location: games.php");
     exit();
 }
 
@@ -57,32 +57,40 @@ mysqli_close($linkDB);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wijzig Spel | Interactive Wall</title>
-    <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/gamesTable.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/login.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/nav.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/gamesTable.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/headerStyle.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
 </head>
 <body>
 <header>
     <nav>
-        <a href="../home.php" class="nav-title">Interactive Wall</a>
+        <a href="home.php" class="nav-title">Interactive Wall</a>
         <button class="menu-toggle">&#9776;</button>
         <ul class="nav-links">
-            <li><a href="../home.php">Home</a></li>
+            <li><a href="home.php">Home</a></li>
             <li><a href="#">Spellen</a></li>
             <?php if ($ingelogd): ?>
-                <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                <li><a href="SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
             <?php endif; ?>
         </ul>
-        <div class="nav-buttons">
-            <?php if ($ingelogd): ?>
-                <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
-                <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
-            <?php else: ?>
-                <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-            <?php endif; ?>
-        </div>
+            <div class="user-menu">
+                <?php if ($ingelogd): ?>
+                    <div class="dropdown">
+                        <span class="user-badge" onclick="toggleDropdown()">
+                            <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
+                        </span>
+                        <div id="dropdown-menu" class="dropdown-content">
+                            <!-- TODO: setting pagina -->
+                            <a href="#">Instellingen</a>
+                            <a href="LOGIN/logout.php">Uitloggen</a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <a href="LOGIN/login.php" class="btn btn-login">Inloggen</a>
+                <?php endif; ?>
+            </div>
     </nav>
 </header>
 
@@ -104,6 +112,6 @@ mysqli_close($linkDB);
 
 <footer>&copy; Vives 2025 - Interactive Wall</footer>
 
-<script src="../NAV PAGES/SCRIPTS/nav.js" defer></script>
+<script src="NAV PAGES/SCRIPTS/nav.js" defer></script>
 </body>
 </html>

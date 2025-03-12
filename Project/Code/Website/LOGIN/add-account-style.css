@@ -1,157 +1,172 @@
 /* Algemene reset en basisstijl */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Achtergrond */
 body {
-    background-color: #f3f4f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #333;
+  background-color: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
 }
 
 /* Registreren container */
 .register-container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 40px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    animation: fadeIn 0.8s ease-out; /* Subtiele fade-in animatie */
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-out; /* Subtiele fade-in animatie */
 }
 
 /* Fade-in animatie */
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Titel */
 h2 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    font-weight: 600;
-    color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: #333;
 }
 
 /* Foutmelding */
 .error {
-    color: #e74c3c;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+  color: #e74c3c;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
 }
 
 /* Formulier velden */
 .input-group {
-    margin-bottom: 20px;
-    text-align: left;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 .input-group label {
-    display: block;
-    font-size: 1rem;
-    margin-bottom: 8px;
-    color: #555;
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #555;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: #f9f9f9;
-    color: #333;
-    transition: border 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: border 0.3s ease;
 }
 
 .input-group input:focus {
-    border-color: #6c63ff; /* Violetta tint bij focus */
-    outline: none;
+  border-color: #6c63ff; /* Violetta tint bij focus */
+  outline: none;
 }
 
 /* Knoppen */
 .button-group {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .btn-submit {
-    width: 100%;
-    padding: 12px;
-    background-color: #6c63ff;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background-color: #6c63ff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-submit:hover {
-    background-color: #4e46c1;
+  background-color: #4e46c1;
 }
 
 /* Annuleerknop */
 .btn-cancel {
-    display: inline-block;
-    margin-top: 10px;
-    color: #6c63ff;
-    font-size: 1rem;
-    text-decoration: none;
-    padding: 8px;
+  display: inline-block;
+  margin-top: 10px;
+  color: #6c63ff;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 8px;
 }
 
 .btn-cancel:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Responsief ontwerp voor mobiele schermen */
 @media (max-width: 600px) {
-    .register-container {
-        padding: 20px;
-        width: 80%;
-    }
+  .register-container {
+    padding: 20px;
+    width: 80%;
+  }
 
-    h2 {
-        font-size: 1.6rem;
-    }
+  h2 {
+    font-size: 1.6rem;
+  }
 }
 
 /* Stijl voor de checkbox en label naast elkaar */
 .input-group .checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Ruimte tussen checkbox en label */
-    justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Ruimte tussen checkbox en label */
+  justify-content: flex-start;
 }
 
 /* Stijl voor de checkbox zelf */
 .input-group input[type="checkbox"] {
-    width: auto; /* Zorg ervoor dat de checkbox de juiste breedte heeft */
-    margin-top: 10px;
-    margin-left: 8px; /* Ruimte tussen checkbox en label */
-    vertical-align: middle; /* Zorgt ervoor dat de checkbox goed uitgelijnd is met de tekst */
+  width: 20px; /* Aangepaste grootte voor de checkbox */
+  height: 20px; /* Hoogte gelijk aan de breedte */
+  margin: 0;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Lichte schaduw voor diepte */
 }
 
+/* Hover effect voor de checkbox */
+.input-group input[type="checkbox"]:hover {
+  border-color: #888; /* Verandert de randkleur bij hover */
+}
+
+/* Styling wanneer de checkbox is geselecteerd */
+.input-group input[type="checkbox"]:checked {
+  background-color: #6c63ff; /* Kleur van de checkbox als deze is geselecteerd */
+  border-color: #6c63ff; /* Kleur van de rand wanneer geselecteerd */
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.6); /* Lichte gloed rondom de geselecteerde checkbox */
+}
 /* Zorg ervoor dat de checkbox en label goed uitgelijnd zijn */
 .input-group label {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 0; /* Verwijder de marge onder het label, zodat het beter uitgelijnd is met de checkbox */
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0; /* Verwijder de marge onder het label, zodat het beter uitgelijnd is met de checkbox */
+  font-weight: 600; /* Versterk de labeltekst */
 }
-
-/* Rest van de stijl blijft hetzelfde */

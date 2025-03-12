@@ -25,19 +25,6 @@ body {
   color: white; /* Witte tekst voor contrast */
   border-radius: 10px; /* Ronde hoeken voor de boodschap */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Schaduw om de boodschap te laten opvallen */
-  animation: fadeIn 1.5s ease-in-out; /* Toevoegen van animatie */
-}
-
-/* Animatie voor de welkomstboodschap */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Error bericht */
@@ -78,10 +65,6 @@ body {
   color: #333;
   margin-bottom: 10px;
   cursor: pointer;
-}
-
-.menu-title:hover {
-  color: #555555;
 }
 
 .long-text {

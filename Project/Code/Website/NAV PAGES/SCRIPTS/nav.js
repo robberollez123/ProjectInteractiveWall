@@ -57,3 +57,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   animateText(); // Start de animatie bij het laden
 });
+
+function toggleDropdown() {
+  var menu = document.getElementById("dropdown-menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Sluit het menu als er buiten wordt geklikt
+document.addEventListener("click", function (event) {
+  var dropdown = document.querySelector(".dropdown");
+  if (!dropdown.contains(event.target)) {
+    document.getElementById("dropdown-menu").style.display = "none";
+  }
+});

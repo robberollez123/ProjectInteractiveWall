@@ -10,10 +10,12 @@ $adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal a
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback</title>
-    <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/feedback.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/nav.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/feedback.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/headerStyle.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <header>
@@ -24,20 +26,27 @@ $adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal a
                 <li><a href="home.php">Home</a></li>
                 <li><a href="games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
-                    <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                    <li><a href="SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
                     <li><a href="#">Feedback</a></li>
                 <?php endif; ?>
                 <?php if ($adminUser): ?>
-                    <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
+                    <li><a href="LOGIN/add-account.php">Account toevoegen</a></li>
                 <?php endif; ?>
             </ul>
-            <div class="nav-buttons">
+            <div class="user-menu">
                 <?php if ($ingelogd): ?>
-                    <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
-                    <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+                    <div class="dropdown">
+                        <span class="user-badge" onclick="toggleDropdown()">
+                            <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
+                        </span>
+                        <div id="dropdown-menu" class="dropdown-content">
+                            <!-- TODO: setting pagina -->
+                            <a href="#">Instellingen</a>
+                            <a href="LOGIN/logout.php">Uitloggen</a>
+                        </div>
+                    </div>
                 <?php else: ?>
-                    <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
-                    <a href="../LOGIN/register.php" class="btn btn-register">Registreren</a>
+                    <a href="LOGIN/login.php" class="btn btn-login">Inloggen</a>
                 <?php endif; ?>
             </div>
         </nav>
@@ -81,6 +90,6 @@ $adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal a
     </footer>
 
     <script src="feedbackscript.js" defer></script>
-    <script src="../NAV PAGES/SCRIPTS/nav.js" defer></script>
+    <script src="NAV PAGES/SCRIPTS/nav.js" defer></script>
 </body>
 </html>

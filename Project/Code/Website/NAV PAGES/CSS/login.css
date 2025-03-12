@@ -1,47 +1,127 @@
-/* Algemene stijl voor knoppen */
-.btn {
-    display: inline-block;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    margin-right: 5px;
-    text-decoration: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    border: none;
+.user-menu {
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-/* Login knop */
+.user-badge,
+.dropdown-content {
+  box-sizing: border-box !important;
+}
+
+.user-badge {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: 1px solid #0056b3;
+  border-radius: 30px; /* Aanzienlijk afgeronde hoeken voor een meer gestroomlijnde uitstraling */
+  display: flex;
+  align-items: center;
+  height: 48px;
+  font-size: 15px; /* Verhoogde tekstgrootte voor betere leesbaarheid */
+  font-weight: 500; /* Zorgt voor een meer gedurfde uitstraling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Zachte schaduw voor diepte */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Soepele overgang en schaalvergroting bij hover */
+  gap: 12px; /* Vergroot de ruimte tussen de iconen en de tekst */
+}
+
+.user-badge:hover {
+  background: linear-gradient(135deg, #0056b3, #003f7f);
+  cursor: pointer;
+  transform: scale(
+    1.05
+  ); /* Maakt de knop net iets groter bij hover voor een dynamischer effect */
+}
+
+.user-badge i {
+  font-size: 18px; /* Vergroot de icoon voor meer visuele impact */
+  transition: transform 0.3s ease; /* Zorgt voor een soepele overgang bij het bewegen van het icoon */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  margin-top: 8px;
+  background: #f4f4f4; /* Lichte achtergrond voor de dropdown */
+  min-width: 120px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  border-radius: 8px; /* Iets grotere afgeronde hoeken */
+  overflow: hidden;
+  text-align: left;
+  padding: 8px 0;
+  font-size: 15px;
+  opacity: 1; /* Begin als onzichtbaar voor soepele overgang */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.dropdown-content a {
+  padding: 10px 15px;
+  color: #333; /* Donkerdere tekst voor betere leesbaarheid */
+  font-size: 15px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #e0e0e0; /* Lichte grijze hover-effect voor links */
+}
+
+.click-indicator {
+  font-size: 16px;
+  color: #444;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease, transform 0.2s ease; /* Voeg een draai-effect toe voor het pijltje */
+}
+
+.click-indicator:hover {
+  color: #4caf50; /* Groen bij hover */
+}
+
+.click-indicator i {
+  margin-right: 8px;
+  color: #4caf50;
+}
+
 .btn-login {
-    background-color: #28a745; /* Groen */
-    color: white;
+  padding: 12px 24px;
+  background: linear-gradient(
+    135deg,
+    #4caf50,
+    #388e3c
+  ); /* Groene gradient bij hover */
+  color: white;
+  border-radius: 30px; /* Aanzienlijk afgeronde hoeken */
+  font-size: 16px;
+  font-weight: 600; /* Vetgedrukte tekst voor meer nadruk */
+  text-transform: uppercase; /* Hoofdletters voor een sterkere uitstraling */
+  text-decoration: none; /* Verwijder onderstreping van de link */
+  display: inline-block;
+  transition: all 0.3s ease; /* Soepele overgang voor alle effecten */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Zachte schaduw voor diepte */
+  cursor: pointer;
 }
 
 .btn-login:hover {
-    background-color: #218838;
-    transform: scale(1.05);
+  background: linear-gradient(
+    135deg,
+    #45a049,
+    #2c6b2f
+  ); /* Donkerder groen bij hover */
+
+  transform: translateY(
+    -2px
+  ); /* Beweeg de knop omhoog voor een 'uitsteken' effect */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Zwaardere schaduw bij hover voor diepte */
 }
 
-/* Logout knop */
-.btn-logout {
-    background-color: #dc3545; /* Rood */
-    color: white;
-}
-
-.btn-logout:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
-}
-
-/* Registratie knop */
-.btn-register {
-    background-color: #007bff; /* Blauw */
-    color: white;
-}
-
-.btn-register:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+.btn-login:active {
+  background: #003f7f; /* Verander de achtergrondkleur wanneer de knop ingedrukt wordt */
+  transform: translateY(2px); /* Knop beweegt licht naar beneden bij klikken */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Terug naar de originele schaduw */
 }

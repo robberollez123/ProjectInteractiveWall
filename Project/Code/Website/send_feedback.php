@@ -23,17 +23,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body = "Naam: $name\nE-mail: $email\n\nBericht:\n$message";
 
     // Verbeterde headers
-    $headers = "From: no-reply@robberollez.be\r\n"; // Zorg dat je domein correct is ingesteld
+    $headers = "From: no-reply@robberollez.be\r\n";
     $headers .= "Reply-To: $email\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
     // Verstuur de e-mail
     if (mail($to, $subject, $body, $headers)) {
-        header("Location: feedback.php?status=success"); // Redirect met status
+        header("Location: feedback.php?status=success");
         exit;
     } else {
-        header("Location: feedback.php?status=failed"); // Redirect met status
+        header("Location: feedback.php?status=failed"); 
     }
 } else {
     header("Location: feedback.php");

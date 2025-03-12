@@ -5,9 +5,8 @@ require_once __DIR__ . '/config/database.php';
 
 // Controleer of de gebruiker is ingelogd
 $ingelogd = isset($_SESSION["user"]);
-$adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal adminstatus correct op uit de sessie
+$adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1;
 
-// Controleer of het formulier is verzonden en of de gebruiker "robberollez" is
 if ($adminUser && isset($_POST["submit"])) {
     if (!empty($_POST["naam"]) && !empty($_POST["link"])) {
         // Gebruik prepared statements voor veiligheid
@@ -46,34 +45,43 @@ if ($adminUser && isset($_GET["delete"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spellen</title>
-    <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/gamesTable.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
-    <link rel="stylesheet" href="../NAV PAGES/CSS/login.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/nav.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/gamesTable.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/headerStyle.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <header>
     <nav>
-        <a href="../home.php" class="nav-title">Interactive Wall</a>
+        <a href="home.php" class="nav-title">Interactive Wall</a>
         <button class="menu-toggle">&#9776;</button>
         <ul class="nav-links">
-            <li><a href="../home.php">Home</a></li>
+            <li><a href="home.php">Home</a></li>
             <li><a href="#">Spellen</a></li>
             <?php if ($ingelogd): ?>
-                <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                <li><a href="SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
                 <li><a href="feedback.php">Feedback</a></li>
             <?php endif; ?>
             <?php if ($adminUser): ?>
-                <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
+                <li><a href="LOGIN/add-account.php">Account toevoegen</a></li>
             <?php endif; ?>
         </ul>
-        <div class="nav-buttons">
+        <div class="user-menu">
             <?php if ($ingelogd): ?>
-                <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
-                <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+                <div class="dropdown">
+                    <span class="user-badge" onclick="toggleDropdown()">
+                        <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
+                    </span>
+                    <div id="dropdown-menu" class="dropdown-content">
+                        <!-- TODO: setting pagina -->
+                        <a href="#">Instellingen</a>
+                        <a href="LOGIN/logout.php">Uitloggen</a>
+                    </div>
+                </div>
             <?php else: ?>
-                <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
+                <a href="LOGIN/login.php" class="btn btn-login">Inloggen</a>
             <?php endif; ?>
         </div>
     </nav>
@@ -124,6 +132,6 @@ if ($adminUser && isset($_GET["delete"])) {
     </table>
 <footer>&copy; Vives 2025 - Interactive Wall</footer>
 
-<script src="../NAV PAGES/SCRIPTS/nav.js" defer></script>
+<script src="NAV PAGES/SCRIPTS/nav.js" defer></script>
 </body>
 </html>

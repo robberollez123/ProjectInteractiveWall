@@ -39,6 +39,7 @@ if ($adminUser && isset($_POST["submit"])) {
     <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/login.css">
     <link rel="stylesheet" href="serialConnection.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <header>
@@ -56,10 +57,18 @@ if ($adminUser && isset($_POST["submit"])) {
                     <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
                 <?php endif; ?>
             </ul>
-            <div class="nav-buttons">
-                <?php if ($adminUser): ?>
-                    <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
-                    <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+            <div class="user-menu">
+                <?php if ($ingelogd): ?>
+                    <div class="dropdown">
+                        <span class="user-badge" onclick="toggleDropdown()">
+                            <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
+                        </span>
+                        <div id="dropdown-menu" class="dropdown-content">
+                            <!-- TODO: setting pagina -->
+                            <a href="#">Instellingen</a>
+                            <a href="../LOGIN/logout.php">Uitloggen</a>
+                        </div>
+                    </div>
                 <?php else: ?>
                     <a href="../LOGIN/login.php" class="btn btn-login">Inloggen</a>
                 <?php endif; ?>

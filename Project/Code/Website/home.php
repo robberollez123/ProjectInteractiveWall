@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["user"] = $username; // Bewaar de gebruikersnaam in de sessie
             $_SESSION["isAdmin"] = $row["is_admin"] ?? 0; // Bewaar de adminstatus correct
 
-            header("Location: ../home.php");
+            header("Location: home.php");
             exit;
         } else {
             $error_message = "Onjuiste gebruikersnaam of wachtwoord!";
@@ -58,6 +58,7 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
     <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <header>
@@ -75,12 +76,20 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
                     <li><a href="LOGIN/add-account.php">Account toevoegen</a></li>
                 <?php endif; ?>
             </ul>
-            <div class="nav-buttons">
+            <div class="user-menu">
                 <?php if ($ingelogd): ?>
-                    <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
-                    <a href="LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
+                    <div class="dropdown">
+                        <span class="user-badge" onclick="toggleDropdown()">
+                            <i class="fa-solid fa-user"> </i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
+                        </span>
+                        <div id="dropdown-menu" class="dropdown-content">
+                            <!-- TODO: setting pagina -->
+                            <a href="#">Instellingen</a>
+                            <a href="LOGIN/logout.php">Uitloggen</a>
+                        </div>
+                    </div>
                 <?php else: ?>
-                    <a href="LOGIN/login.php" class="btn btn-login">Inloggen</a>
+                    <a href="LOGIN/login.php" class="btn-login">Inloggen</a>
                 <?php endif; ?>
             </div>
         </nav>
@@ -98,22 +107,22 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
     <!-- Menu structuur voor de informatie -->
     <section class="menu">
         <div class="menu-item">
-            <h2 class="menu-title">Info</h2>
+            <h2 class="menu-title">Info <span class="click-indicator"><i class="fas fa-arrow-right"></i> Klik om te openen</span></h2>
             <p class="long-text hidden">De Interactive Wall is een innovatief en educatief spelplatform, speciaal ontwikkeld voor kleuters van het derde jaar basisonderwijs. Het platform maakt gebruik van capacitieve drukknoppen waarop kinderen afbeeldingen kunnen plaatsen en interactief spel kunnen spelen. Dit stimuleert de cognitieve en motorische ontwikkeling van kinderen en helpt bij het aanleren van verschillende concepten zoals kleuren, vormen, getallen en meer.</p>
         </div>
 
         <div class="menu-item">
-            <h2 class="menu-title">Hoe werkt het?</h2>
+            <h2 class="menu-title">Hoe werkt het? <span class="click-indicator"><i class="fas fa-arrow-right"></i> Klik om te openen</span></h2>
             <p class="long-text hidden">De Interactive Wall is een innovatief educatief spelplatform dat bestaat uit 12 capacitieve drukknoppen waarop verschillende afbeeldingen kunnen worden geplakt. Elke knop activeert een specifieke functie of leertaken die door kinderen kunnen worden gebruikt om bepaalde vaardigheden te ontwikkelen. De wall kan worden gepersonaliseerd met verschillende spellen die aansluiten bij de leerdoelen van de kinderen.</p>
         </div>
 
         <div class="menu-item">
-            <h2 class="menu-title">Voor leerkrachten</h2>
+            <h2 class="menu-title">Voor leerkrachten <span class="click-indicator"><i class="fas fa-arrow-right"></i> Klik om te openen</span></h2>
             <p class="long-text hidden">Leerkrachten kunnen zelf spelletjes aanpassen via de website, zodat de Interactive Wall aangepast kan worden aan de lesinhoud. Dit geeft leerkrachten de mogelijkheid om het platform te gebruiken voor verschillende onderwijsdoelen, zoals taal, rekenen, en sociale vaardigheden. De spellen kunnen eenvoudig worden geconfigureerd, zodat ze aansluiten bij de specifieke behoeften van de leerlingen.</p>
         </div>
 
         <div class="menu-item">
-            <h2 class="menu-title">Ontwikkeling</h2>
+            <h2 class="menu-title">Ontwikkeling <span class="click-indicator"><i class="fas fa-arrow-right"></i> Klik om te openen</span></h2>
             <p class="long-text hidden">Dit project is ontwikkeld door vijf studenten van de Hogeschool VIVES in het kader van het vak Project. Het doel was om een educatief platform te creëren dat de interactie tussen kinderen en technologie bevordert. De Interactive Wall combineert hardware en software om een speelse en leerzame ervaring te bieden. Het platform is ontwikkeld met open-source technologieën en is bedoeld om in scholen te worden ingezet voor educatieve doeleinden.</p>
         </div>
     </section>
