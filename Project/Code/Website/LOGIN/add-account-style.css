@@ -130,3 +130,28 @@ h2 {
         font-size: 1.6rem;
     }
 }
+
+/* Stijl voor de checkbox en label naast elkaar */
+.input-group .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Ruimte tussen checkbox en label */
+    justify-content: flex-start;
+}
+
+/* Stijl voor de checkbox zelf */
+.input-group input[type="checkbox"] {
+    width: auto; /* Zorg ervoor dat de checkbox de juiste breedte heeft */
+    margin-top: 10px;
+    margin-left: 8px; /* Ruimte tussen checkbox en label */
+    vertical-align: middle; /* Zorgt ervoor dat de checkbox goed uitgelijnd is met de tekst */
+}
+
+/* Zorg ervoor dat de checkbox en label goed uitgelijnd zijn */
+.input-group label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0; /* Verwijder de marge onder het label, zodat het beter uitgelijnd is met de checkbox */
+}
+
+/* Rest van de stijl blijft hetzelfde */

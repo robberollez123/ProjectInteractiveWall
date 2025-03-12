@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST["username"]);
     $password = $_POST["password"];
     $confirmPassword = $_POST["confirmPassword"];
+    $isAdmin = isset($_POST["isAdmin"]) ? 1 : 0;
 
     if (empty($username) || empty($password) || empty($confirmPassword)) {
         $error_message = "Vul alle velden in!";
@@ -25,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Hash het wachtwoord en voeg de gebruiker toe
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO gebruiker (gebruikersnaam, wachtwoord) VALUES (?, ?)";
+            $query = "INSERT INTO gebruiker (gebruikersnaam, wachtwoord, is_admin) VALUES (?, ?, ?)";
             $stmt = mysqli_prepare($linkDB, $query);
-            mysqli_stmt_bind_param($stmt, "ss", $username, $hashedPassword);
+            mysqli_stmt_bind_param($stmt, "ssi", $username, $hashedPassword, $isAdmin);
 
             if (mysqli_stmt_execute($stmt)) {
                 $_SESSION["user"] = $username;
@@ -71,6 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="input-group">
                 <label for="confirmPassword">Bevestig Wachtwoord:</label>
                 <input type="password" name="confirmPassword" id="confirmPassword" required>
+            </div>
+            <div class="input-group">
+                <div class="checkbox-container">
+                    <label for="isAdmin">Admin</label>
+                    <input type="checkbox" name="isAdmin" id="isAdmin" value="1">
+                </div>
             </div>
             <div class="button-group">
                 <input type="submit" value="Registreren" class="btn-submit">

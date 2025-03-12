@@ -5,7 +5,7 @@ require_once __DIR__ . '/config/database.php';
 
 // Controleer of de gebruiker is ingelogd
 $ingelogd = isset($_SESSION["user"]);
-$adminUser = ($ingelogd && in_array($_SESSION["user"], ["robbe-admin", "jelle-admin"]));
+$adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal adminstatus correct op uit de sessie
 
 // Controleer of het formulier is verzonden en of de gebruiker "robberollez" is
 if ($adminUser && isset($_POST["submit"])) {
@@ -45,7 +45,7 @@ if ($adminUser && isset($_GET["delete"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spellen | Interactive Wall</title>
+    <title>Spellen</title>
     <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/gamesTable.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">

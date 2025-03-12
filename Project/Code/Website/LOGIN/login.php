@@ -1,54 +1,54 @@
 <?php
 session_start();
 
-// Wanneer het formulier wordt verzonden, verwerken we de gegevens
+// Controleer of het formulier is verzonden
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["user"];
+    $username = trim($_POST["user"]); // Whitespace verwijderen
     $password = $_POST["password"];
 
     // Verbinding maken met de database
     require_once __DIR__ . '/../config/database.php';
-    
-    // Controleren of de verbinding gelukt is
+
+    // Controleer of de verbinding gelukt is
     if (!$linkDB) {
         die("Databaseverbinding mislukt: " . mysqli_connect_error());
     }
 
-    // Zoek naar de gebruiker in de database
-    $query = "SELECT * FROM gebruiker WHERE gebruikersnaam = '$username'";
-    $result = mysqli_query($linkDB, $query);
-    
-    // Als er een gebruiker wordt gevonden, controleer het wachtwoord met password_verify
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
+    // Gebruik een prepared statement om SQL-injectie te voorkomen
+    $query = "SELECT gebruikersnaam, wachtwoord, isAdmin FROM gebruiker WHERE gebruikersnaam = ?";
+    $stmt = mysqli_prepare($linkDB, $query);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    // Controleer of de gebruiker bestaat
+    if ($row = mysqli_fetch_assoc($result)) {
         $hashedPassword = $row["wachtwoord"];
 
-        // Controleer of het ingevoerde wachtwoord overeenkomt met het gehashte wachtwoord uit de database
+        // Controleer of het ingevoerde wachtwoord correct is
         if (password_verify($password, $hashedPassword)) {
-            // Stel de sessiegegevens in en log de gebruiker in
+            // Sessiegegevens opslaan (maar NIET het wachtwoord!)
             $_SESSION["user"] = $username;
-            $_SESSION["password"] = $password;  
+            $_SESSION["isAdmin"] = isset($row["isAdmin"]) ? (int)$row["isAdmin"] : 0; // Zorg ervoor dat het een integer is
 
             // Stuur de gebruiker door naar de homepagina
             header("Location: ../home.php");
             exit;
         } else {
-            // Onjuist wachtwoord, toon een foutmelding
             $error_message = "Onjuiste gebruikersnaam of wachtwoord!";
         }
     } else {
-        // Gebruiker niet gevonden
         $error_message = "Onjuiste gebruikersnaam of wachtwoord!";
     }
 
-    // Sluit de databaseverbinding
+    // Sluit de statement en databaseverbinding
+    mysqli_stmt_close($stmt);
     mysqli_close($linkDB);
 }
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,10 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Login</h2>
         
         <?php if (isset($error_message)): ?>
-            <p class="error"><?php echo $error_message; ?></p>
+            <p class="error"><?php echo htmlspecialchars($error_message, ENT_QUOTES, 'UTF-8'); ?></p>
         <?php endif; ?>
         
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="input-group">
                 <label for="user">Gebruikersnaam:</label>
                 <input type="text" name="user" id="user" required>

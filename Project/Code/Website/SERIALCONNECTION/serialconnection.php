@@ -3,7 +3,7 @@ session_start();
 
 // Controleer of de gebruiker is ingelogd
 $ingelogd = isset($_SESSION["user"]);
-$adminUser = ($ingelogd && in_array($_SESSION["user"], ["robbe-admin", "jelle-admin"]));
+$adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal adminstatus correct op uit de sessie
 
 // Databaseverbinding
 require_once __DIR__ . '/../config/database.php';
@@ -32,7 +32,7 @@ if ($adminUser && isset($_POST["submit"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data test | Interactive Wall</title>
+    <title>Data test</title>
     <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
     <link rel="stylesheet" href="serialDataTable.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/headerStyle.css">
@@ -57,7 +57,7 @@ if ($adminUser && isset($_POST["submit"])) {
                 <?php endif; ?>
             </ul>
             <div class="nav-buttons">
-                <?php if ($ingelogd): ?>
+                <?php if ($adminUser): ?>
                     <span class="user-badge"><?php echo htmlspecialchars($_SESSION["user"]); ?></span>
                     <a href="../LOGIN/logout.php" class="btn btn-logout">Uitloggen</a>
                 <?php else: ?>

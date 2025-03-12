@@ -1,6 +1,7 @@
 <?php
 session_start();
 $ingelogd = isset($_SESSION["user"]);
+$adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal adminstatus correct op uit de sessie
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +9,7 @@ $ingelogd = isset($_SESSION["user"]);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback | Interactive Wall</title>
+    <title>Feedback</title>
     <link rel="stylesheet" href="../NAV PAGES/CSS/nav.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/main.css">
     <link rel="stylesheet" href="../NAV PAGES/CSS/feedback.css">
@@ -25,6 +26,9 @@ $ingelogd = isset($_SESSION["user"]);
                 <?php if ($ingelogd): ?>
                     <li><a href="../SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
                     <li><a href="#">Feedback</a></li>
+                <?php endif; ?>
+                <?php if ($adminUser): ?>
+                    <li><a href="../LOGIN/add-account.php">Account toevoegen</a></li>
                 <?php endif; ?>
             </ul>
             <div class="nav-buttons">
