@@ -40,7 +40,6 @@ if ($adminUser && isset($_GET["delete"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spellen</title>
     <link rel="stylesheet" href="NAV PAGES/CSS/nav.css">
-    <link rel="stylesheet" href="NAV PAGES/CSS/gamesTable.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/headerStyle.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
@@ -82,7 +81,8 @@ if ($adminUser && isset($_GET["delete"])) {
     </nav>
 </header>
 
-<h1>Info</h1>
+<main>
+    <h1>Info</h1>
 <p>Hier kan je een spel uitkiezen en spelen.</p>
 
 <?php if ($adminUser): ?>
@@ -124,6 +124,7 @@ if ($adminUser && isset($_GET["delete"])) {
     }
     ?>
 </div>
+</main>
 
 <footer>&copy; Vives 2025 - Interactive Wall</footer>
 

@@ -1,48 +1,60 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 /* General container styling */
 .container {
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 50%; /* 50% width */
-    margin: 5px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 50%; /* 50% width */
+  margin: 5px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 #connectButton {
-    background-color: #007bff;
-    width: 50%;
-    margin: 0 auto;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+  background-color: #007bff;
+  width: 50%;
+  margin: 0 auto;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 #connectButton:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 #connectionStatus,
 #receivedData {
-    font-size: 16px;
-    color: #333;
+  font-size: 16px;
+  color: #333;
 }
 
 #dataDisplay {
-    font-weight: bold;
-    color: #28a745;
+  font-weight: bold;
+  color: #28a745;
 }
 
 /* Optional: Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
-    .container{
-        width: 80%; /* Adjust to 80% for smaller screens */
-    }
+  .container {
+    width: 80%; /* Adjust to 80% for smaller screens */
+  }
 }

@@ -76,7 +76,8 @@ if ($adminUser && isset($_POST["submit"])) {
         </nav>
     </header>
 
-    <h1>Test het ontvangen van data van de seriele poort.</h1>
+<main>
+        <h1>Test het ontvangen van data van de seriele poort.</h1>
 
     <div class="container">
         <button id="connectButton">Connect</button>
@@ -106,9 +107,7 @@ if ($adminUser && isset($_POST["submit"])) {
             <button id="nextPage" class="pagination-button" disabled>Volgende</button>
         </div>
     </div>
-
-
-    
+</main>
     <footer>&copy; Vives 2025 - Interactive Wall</footer>
     <script src="script.js"></script>
     <script src="../NAV PAGES/SCRIPTS/nav.js"></script>

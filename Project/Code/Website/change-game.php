@@ -59,7 +59,7 @@ mysqli_close($linkDB);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wijzig Spel | Interactive Wall</title>
     <link rel="stylesheet" href="NAV PAGES/CSS/nav.css">
-    <link rel="stylesheet" href="NAV PAGES/CSS/gamesTable.css">
+    <link rel="stylesheet" href="NAV PAGES/CSS/games.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/headerStyle.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/main.css">
     <link rel="stylesheet" href="NAV PAGES/CSS/login.css">
