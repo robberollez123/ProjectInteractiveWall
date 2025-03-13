@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . '/config/database.php';
-        // $linkDB = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: ".mysqli_connect_error());
 
 // Controleer of de gebruiker is ingelogd en admin is
 $ingelogd = isset($_SESSION["user"]);
@@ -30,22 +29,46 @@ if ($result && mysqli_num_rows($result) > 0) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     $naam = $_POST["naam"];
     $link = $_POST["link"];
+    $uitleg = $_POST["uitleg"];
+    $iconPath = $game['icon']; // Houd het huidige icon bij voor het geval er geen nieuwe afbeelding wordt geüpload
 
     if (!empty($naam) && !empty($link)) {
+        // Verwerken van de nieuwe afbeelding
+        if (isset($_FILES["icon"]) && $_FILES["icon"]["error"] == 0) {
+            // Zorg ervoor dat het bestand een afbeelding is
+            $allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+            if (in_array($_FILES["icon"]["type"], $allowedTypes)) {
+                // Genereer een unieke bestandsnaam
+                $iconName = uniqid("game_icon_", true) . "." . pathinfo($_FILES["icon"]["name"], PATHINFO_EXTENSION);
+                $targetDir = "uploads/icons/"; // Zorg ervoor dat deze map bestaat en schrijfbaar is
+                $targetFile = $targetDir . $iconName;
+
+                // Beweeg het bestand naar de uploadmap
+                if (move_uploaded_file($_FILES["icon"]["tmp_name"], $targetFile)) {
+                    $iconPath = $targetFile; // Update het bestandspad
+                } else {
+                    $message = "<p class='error'>Fout bij het uploaden van de afbeelding.</p>";
+                }
+            } else {
+                $message = "<p class='error'>Alleen JPEG, PNG en GIF bestanden worden toegestaan.</p>";
+            }
+        }
+
         // Gebruik prepared statements voor veiligheid
-        $updateQuery = "UPDATE spellen SET naam = ?, link = ? WHERE id = ?";
+        $updateQuery = "UPDATE spellen SET naam = ?, link = ?, uitleg = ?, icon = ? WHERE id = ?";
         $stmt = mysqli_prepare($linkDB, $updateQuery);
-        mysqli_stmt_bind_param($stmt, "ssi", $naam, $link, $gameId);
+        mysqli_stmt_bind_param($stmt, "ssssi", $naam, $link, $uitleg, $iconPath, $gameId);
 
         if (mysqli_stmt_execute($stmt)) {
             $message = "<p class='success'>Spel succesvol bijgewerkt.</p>";
             header("Location: games.php");
+            exit();
         } else {
             $message = "<p class='error'>Fout bij bijwerken: " . mysqli_error($linkDB) . "</p>";
         }
         mysqli_stmt_close($stmt);
     } else {
-        $message = "<p class='error'>Vul zowel de naam als de link in.</p>";
+        $message = "<p class='error'>Vul zowel de naam, link en uitleg in.</p>";
     }
 }
 
@@ -101,9 +124,19 @@ mysqli_close($linkDB);
 
 <?php if ($game): ?>
     <div id="add-game-container">
-        <form action="<?php echo $_SERVER["PHP_SELF"] . "?id={$gameId}"; ?>" method="post">
+        <form action="<?php echo $_SERVER["PHP_SELF"] . "?id={$gameId}"; ?>" method="post" enctype="multipart/form-data">
+            <label for="naam">Spelnaam</label>
             <input type="text" name="naam" value="<?php echo htmlspecialchars($game['naam']); ?>" placeholder="Vul de naam van het spel in..." required>
+            
+            <label for="link">Spel Link</label>
             <input type="url" name="link" value="<?php echo htmlspecialchars($game['link']); ?>" placeholder="Vul de link naar het spel in..." required>
+            
+            <label for="uitleg">Uitleg</label>
+            <textarea name="uitleg" placeholder="Geef een korte uitleg over het spel..." required><?php echo htmlspecialchars($game['uitleg']); ?></textarea>
+            
+            <label for="icon">Spel Icoon (Optioneel)</label>
+            <input type="file" name="icon" accept="image/*">
+
             <input class="game-button" type="submit" name="submit" value="Bijwerken">
         </form>
     </div>

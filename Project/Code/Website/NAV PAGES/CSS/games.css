@@ -21,6 +21,7 @@
   border: 2px solid #aac4e6;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   text-align: center;
+  position: relative;
 }
 
 .spel-wrapper h2 {
@@ -122,6 +123,41 @@ textarea {
   box-sizing: border-box; /* Dit zorgt ervoor dat padding en borders niet buiten de breedte vallen */
 }
 
+.spel-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.success {
+  background-color: #4caf50; /* Groen voor succes */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  width: 60%;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 1.2em;
+  box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.2);
+}
+
+.error {
+  background-color: #f44336; /* Rood voor foutmelding */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  width: 60%;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 1.2em;
+  box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.2);
+}
+
 input:focus,
 textarea:focus {
   border-color: #295fff;
@@ -133,6 +169,7 @@ textarea {
   height: 120px;
   resize: vertical;
 }
+
 .game-button {
   background: linear-gradient(135deg, #698eff, #3e6fff);
   color: white;

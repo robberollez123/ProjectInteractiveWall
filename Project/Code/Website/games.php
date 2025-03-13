@@ -3,16 +3,39 @@ session_start();
 
 // $linkDB = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: ".mysqli_connect_error());
 require_once __DIR__ . '/config/database.php';
+
 // Controleer of de gebruiker is ingelogd
 $ingelogd = isset($_SESSION["user"]);
 $adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1;
 
 if ($adminUser && isset($_POST["submit"])) {
     if (!empty($_POST["naam"]) && !empty($_POST["link"]) && !empty($_POST["uitleg"])) {
+        // Verwerken van de afbeelding
+        $iconPath = null;
+        if (isset($_FILES["icon"]) && $_FILES["icon"]["error"] == 0) {
+            // Zorg ervoor dat het bestand een afbeelding is
+            $allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+            if (in_array($_FILES["icon"]["type"], $allowedTypes)) {
+                // Genereer een unieke bestandsnaam
+                $iconName = uniqid("game_icon_", true) . "." . pathinfo($_FILES["icon"]["name"], PATHINFO_EXTENSION);
+                $targetDir = "uploads/icons/"; // Zorg ervoor dat deze map bestaat en schrijfbaar is
+                $targetFile = $targetDir . $iconName;
+
+                // Beweeg het bestand naar de uploadmap
+                if (move_uploaded_file($_FILES["icon"]["tmp_name"], $targetFile)) {
+                    $iconPath = $targetFile; // Opslaan van het bestandspad
+                } else {
+                    $message = "<p class='error'>Fout bij het uploaden van de afbeelding.</p>";
+                }
+            } else {
+                $message = "<p class='error'>Alleen JPEG, PNG en GIF bestanden worden toegestaan.</p>";
+            }
+        }
+
         // Gebruik prepared statements voor veiligheid
-        $query = "INSERT INTO spellen (naam, link, uitleg) VALUES (?, ?, ?)";
+        $query = "INSERT INTO spellen (naam, link, uitleg, icon) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($linkDB, $query);
-        mysqli_stmt_bind_param($stmt, "sss", $_POST["naam"], $_POST["link"], $_POST["uitleg"]);
+        mysqli_stmt_bind_param($stmt, "ssss", $_POST["naam"], $_POST["link"], $_POST["uitleg"], $iconPath);
         
         if (!mysqli_stmt_execute($stmt)) {
             $message = "<p class='error'>Fout bij toevoegen: " . mysqli_error($linkDB) . "</p>";
@@ -28,7 +51,11 @@ if ($adminUser && isset($_GET["delete"])) {
     $deleteQuery = "DELETE FROM spellen WHERE id = ?";
     $stmt = mysqli_prepare($linkDB, $deleteQuery);
     mysqli_stmt_bind_param($stmt, "i", $gameId);
-    
+    if (mysqli_stmt_execute($stmt)) {
+        $message = "<p class='success'>Spel succesvol verwijderd.</p>";
+    } else {
+        $message = "<p class='error'>Fout bij verwijderen: " . mysqli_error($linkDB) . "</p>";
+    }
     mysqli_stmt_close($stmt);
 }
 ?>
@@ -69,7 +96,6 @@ if ($adminUser && isset($_GET["delete"])) {
                         <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
                     </span>
                     <div id="dropdown-menu" class="dropdown-content">
-                        <!-- TODO: setting pagina -->
                         <a href="#">Instellingen</a>
                         <a href="LOGIN/logout.php">Uitloggen</a>
                     </div>
@@ -83,47 +109,53 @@ if ($adminUser && isset($_GET["delete"])) {
 
 <main>
     <h1>Info</h1>
-<p>Hier kan je een spel uitkiezen en spelen.</p>
+    <p>Hier kan je een spel uitkiezen en spelen.</p>
 
-<?php if ($adminUser): ?>
-    <h1>Voeg een nieuw spel toe</h1>
-    <div id="add-game-container">
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <label for="naam">Spelnaam</label>
-            <input type="text" id="naam" name="naam" placeholder="Vul de naam van het spel in..." required>
+    <?php if ($adminUser): ?>
+        <h1>Voeg een nieuw spel toe</h1>
+        <div id="add-game-container">
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+                <label for="naam">Spelnaam</label>
+                <input type="text" id="naam" name="naam" placeholder="Vul de naam van het spel in..." required>
 
-            <label for="link">Spel Link</label>
-            <input type="url" id="link" name="link" placeholder="Vul de link naar het spel in..." required>
+                <label for="link">Spel Link</label>
+                <input type="url" id="link" name="link" placeholder="Vul de link naar het spel in..." required>
 
-            <label for="uitleg">Uitleg</label>
-            <textarea id="uitleg" name="uitleg" placeholder="Geef een korte uitleg over het spel..." required></textarea>
+                <label for="uitleg">Uitleg</label>
+                <textarea id="uitleg" name="uitleg" placeholder="Geef een korte uitleg over het spel..." required></textarea>
 
-            <input class="game-button" type="submit" name="submit" value="Toevoegen">
-        </form>
-    </div>
-    <?php if (isset($message)) echo $message; ?>
-<?php endif; ?>
+                <label for="icon">Spel Icoon (Optioneel)</label>
+                <input type="file" id="icon" name="icon" accept="image/*">
 
-<h1>Spellen</h1>
-<div class="games-container">
-    <?php
-    $result = mysqli_query($linkDB, "SELECT * FROM spellen");
-    while ($record = mysqli_fetch_array($result)) {
-        echo "<div class='spel-wrapper'>
-                <h2>{$record['naam']}</h2>
-                <p>{$record['uitleg']}</p>
-                <div class='admin-buttons'>
-                    <a class='game-btn' href='{$record['link']}' target='_blank'>Speel</a>";
+                <input class="game-button" type="submit" name="submit" value="Toevoegen">
+            </form>
+        </div>
+        <?php if (isset($message)) echo $message; ?>
+    <?php endif; ?>
 
-        if ($adminUser) {
-            echo "<a class='game-btn edit' href='change-game.php?id={$record['id']}'>Wijzig</a>
-                  <a class='game-btn delete' href='?delete={$record['id']}' onclick='return confirm(\"Weet je zeker dat je dit spel wilt verwijderen?\")'>Verwijder</a>";
+    <h1>Spellen</h1>
+    <div class="games-container">
+        <?php
+        $result = mysqli_query($linkDB, "SELECT * FROM spellen");
+        while ($record = mysqli_fetch_array($result)) {
+            echo "<div class='spel-wrapper'>";
+            if (!empty($record['icon'])) {
+                echo "<img class='spel-icon' src='{$record['icon']}' alt='Spel Icoon'>";
+            }
+            echo "<h2>{$record['naam']}</h2>
+                  <p>{$record['uitleg']}</p>
+                  <div class='admin-buttons'>
+                      <a class='game-btn' href='{$record['link']}' target='_blank'>Speel</a>";
+
+            if ($adminUser) {
+                echo "<a class='game-btn edit' href='change-game.php?id={$record['id']}'>Wijzig</a>
+                      <a class='game-btn delete' href='?delete={$record['id']}' onclick='return confirm(\"Weet je zeker dat je dit spel wilt verwijderen?\")'>Verwijder</a>";
+            }
+
+            echo "</div></div>";
         }
-
-        echo "</div></div>";
-    }
-    ?>
-</div>
+        ?>
+    </div>
 </main>
 
 <footer>&copy; Vives 2025 - Interactive Wall</footer>
