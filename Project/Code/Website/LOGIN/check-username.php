@@ -1,5 +1,6 @@
 <?php
 require_once "/../config/database.php";
+        // $linkDB = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: ".mysqli_connect_error());
 
 if (isset($_POST["username"])) {
     $username = trim($_POST["username"]);

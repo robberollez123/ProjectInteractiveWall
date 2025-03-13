@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verbinding maken met de database
     require_once __DIR__ . '/../config/database.php';
+        // $linkDB = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: ".mysqli_connect_error());
 
     // Controleer of de verbinding gelukt is
     if (!$linkDB) {

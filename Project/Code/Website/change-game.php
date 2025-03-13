@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/config/database.php';
+        // $linkDB = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: ".mysqli_connect_error());
 
 // Controleer of de gebruiker is ingelogd en admin is
 $ingelogd = isset($_SESSION["user"]);

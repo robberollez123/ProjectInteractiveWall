@@ -1,0 +1,176 @@
+.games-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Zorgt voor mooie uitlijning */
+  gap: 20px; /* Ruimte tussen de spel-wrappers */
+  max-width: 1600px;
+  margin: 50px auto;
+}
+
+.spel-wrapper {
+  background: linear-gradient(135deg, #f8f9fa, #fcddf0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1 calc(25% - 20px); /* Max 4 per rij */
+  max-width: 350px;
+  min-width: 250px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #aac4e6;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.spel-wrapper h2 {
+  font-size: 1.5em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.admin-buttons {
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.game-btn {
+  background: linear-gradient(135deg, #34a853, #2e8b47);
+  color: white;
+  padding: 12px 15px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  flex: 1;
+  text-align: center;
+  min-width: 80px;
+  max-width: 120px;
+  margin: 8px 0; /* Top & bottom margin toegevoegd */
+}
+
+.game-btn:hover {
+  background: linear-gradient(135deg, #4caf50, #3b9243);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Extra styling voor de admin knoppen */
+.edit {
+  background: linear-gradient(135deg, #f0a30a, #e69500);
+}
+
+.edit:hover {
+  background: linear-gradient(135deg, #ffb400, #e69500);
+}
+
+.delete {
+  background: linear-gradient(135deg, #d9534f, #c9302c);
+}
+
+.delete:hover {
+  background: linear-gradient(135deg, #ff5a57, #c9302c);
+}
+
+#add-game-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid #6188ff;
+  width: 100%; /* Zorg ervoor dat de container de volledige breedte gebruikt */
+}
+
+#add-game-container h1 {
+  text-align: center;
+  color: #1570d8;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%; /* Zorg ervoor dat de form het volledige beschikbare ruimte gebruikt */
+}
+
+label {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+}
+
+input,
+textarea {
+  width: 100%; /* Zorg ervoor dat de inputs de volledige breedte van hun container gebruiken */
+  padding: 14px;
+  border: 2px solid #7698ff;
+  border-radius: 10px;
+  font-size: 1em;
+  background: #fff8f6;
+  transition: 0.3s;
+  box-sizing: border-box; /* Dit zorgt ervoor dat padding en borders niet buiten de breedte vallen */
+}
+
+input:focus,
+textarea:focus {
+  border-color: #295fff;
+  outline: none;
+  box-shadow: 0px 3px 8px rgba(216, 67, 21, 0.2);
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+.game-button {
+  background: linear-gradient(135deg, #698eff, #3e6fff);
+  color: white;
+  padding: 14px 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.game-button:hover {
+  background: linear-gradient(135deg, hsl(225, 100%, 54%), #3e6fff);
+  transform: scale(1.05);
+}
+
+/* Responsieve aanpassingen */
+@media (max-width: 1400px) {
+  .spel-wrapper {
+    flex: 1 1 calc(33.333% - 20px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .spel-wrapper {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 600px) {
+  .spel-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .admin-buttons {
+    flex-direction: column; /* Op mobiele schermen onder elkaar */
+    align-items: center;
+  }
+}
