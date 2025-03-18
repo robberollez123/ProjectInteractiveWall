@@ -69,7 +69,7 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
                 <li><a href="#">Home</a></li>
                 <li><a href="games.php">Spellen</a></li>
                 <?php if ($ingelogd): ?>
-                    <li><a href="SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
+                   <li><a href="SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
                     <li><a href="feedback.php">Feedback</a></li>
                 <?php endif; ?>
                 <?php if ($adminUser): ?>
@@ -84,7 +84,7 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
                         </span>
                         <div id="dropdown-menu" class="dropdown-content">
                             <!-- TODO: setting pagina -->
-                            <a href="#">Instellingen</a>
+                            <a href="settings.php">Instellingen</a>
                             <a href="LOGIN/logout.php">Uitloggen</a>
                         </div>
                     </div>

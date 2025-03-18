@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Hash het wachtwoord en voeg de gebruiker toe
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO gebruiker (gebruikersnaam, wachtwoord, is_admin) VALUES (?, ?, ?)";
+            $query = "INSERT INTO gebruiker (gebruikersnaam, wachtwoord, isAdmin) VALUES (?, ?, ?)";
             $stmt = mysqli_prepare($linkDB, $query);
             mysqli_stmt_bind_param($stmt, "ssi", $username, $hashedPassword, $isAdmin);
 
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         function checkUsername() {
             let username = document.getElementById("username").value;
             if (username.length > 2) {
-                $.post("check_username.php", { username: username }, function (data) {
+                $.post("check-username.php", { username: username }, function (data) {
                     $("#username-status").html(data);
                 });
             } else {

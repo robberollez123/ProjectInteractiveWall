@@ -1,61 +1,86 @@
 <?php
 session_start();
 
-// $linkDB = mysqli_connect("localhost", "root", "", "interactivewall") or die("Error: ".mysqli_connect_error());
+// Enable error reporting to catch issues
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Include database connection
 require_once __DIR__ . '/config/database.php';
 
-// Controleer of de gebruiker is ingelogd
+// Check if user is logged in and is admin
 $ingelogd = isset($_SESSION["user"]);
 $adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1;
 
+// Handle game submission
 if ($adminUser && isset($_POST["submit"])) {
     if (!empty($_POST["naam"]) && !empty($_POST["link"]) && !empty($_POST["uitleg"])) {
-        // Verwerken van de afbeelding
+        // Handle file upload
         $iconPath = null;
-        if (isset($_FILES["icon"]) && $_FILES["icon"]["error"] == 0) {
-            // Zorg ervoor dat het bestand een afbeelding is
-            $allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
-            if (in_array($_FILES["icon"]["type"], $allowedTypes)) {
-                // Genereer een unieke bestandsnaam
-                $iconName = uniqid("game_icon_", true) . "." . pathinfo($_FILES["icon"]["name"], PATHINFO_EXTENSION);
-                $targetDir = "uploads/icons/"; // Zorg ervoor dat deze map bestaat en schrijfbaar is
+        $targetDir = "uploads/icons/";
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']; // ✅ Fixed missing variable
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+        if (!empty($_FILES["icon"]["name"])) {
+            $fileType = $_FILES["icon"]["type"];
+            $fileExtension = strtolower(pathinfo($_FILES["icon"]["name"], PATHINFO_EXTENSION));
+
+            if (in_array($fileType, $allowedTypes) && in_array($fileExtension, $allowedExtensions)) {
+                // Generate unique filename
+                $iconName = uniqid("game_icon_", true) . "." . $fileExtension;
                 $targetFile = $targetDir . $iconName;
 
-                // Beweeg het bestand naar de uploadmap
+                // Check if uploads folder is writable
+                if (!is_dir($targetDir) || !is_writable($targetDir)) {
+                    die("<p class='error'>Error: Uploads folder does not exist or is not writable.</p>");
+                }
+
                 if (move_uploaded_file($_FILES["icon"]["tmp_name"], $targetFile)) {
-                    $iconPath = $targetFile; // Opslaan van het bestandspad
+                    $iconPath = $targetFile;
                 } else {
-                    $message = "<p class='error'>Fout bij het uploaden van de afbeelding.</p>";
+                    die("<p class='error'>Error: Failed to upload the image.</p>");
                 }
             } else {
-                $message = "<p class='error'>Alleen JPEG, PNG en GIF bestanden worden toegestaan.</p>";
+                die("<p class='error'>Error: Only JPEG, PNG, GIF, and WEBP files are allowed.</p>");
             }
         }
 
-        // Gebruik prepared statements voor veiligheid
+        // Prepare SQL query
         $query = "INSERT INTO spellen (naam, link, uitleg, icon) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($linkDB, $query);
-        mysqli_stmt_bind_param($stmt, "ssss", $_POST["naam"], $_POST["link"], $_POST["uitleg"], $iconPath);
-        
-        if (!mysqli_stmt_execute($stmt)) {
-            $message = "<p class='error'>Fout bij toevoegen: " . mysqli_error($linkDB) . "</p>";
+        if (!$stmt) {
+            die("<p class='error'>SQL Error: " . mysqli_error($linkDB) . "</p>");
         }
-        
+
+        mysqli_stmt_bind_param($stmt, "ssss", $_POST["naam"], $_POST["link"], $_POST["uitleg"], $iconPath);
+
+        if (!mysqli_stmt_execute($stmt)) {
+            die("<p class='error'>Error inserting data: " . mysqli_error($linkDB) . "</p>");
+        }
+
         mysqli_stmt_close($stmt);
+    } else {
+        die("<p class='error'>Error: All fields are required.</p>");
     }
 }
 
-// Verwijder een spel als de admin op de knop drukt
+// Handle game deletion
 if ($adminUser && isset($_GET["delete"])) {
-    $gameId = $_GET["delete"];
+    $gameId = intval($_GET["delete"]);
     $deleteQuery = "DELETE FROM spellen WHERE id = ?";
     $stmt = mysqli_prepare($linkDB, $deleteQuery);
+    
+    if (!$stmt) {
+        die("<p class='error'>SQL Error: " . mysqli_error($linkDB) . "</p>");
+    }
+
     mysqli_stmt_bind_param($stmt, "i", $gameId);
     if (mysqli_stmt_execute($stmt)) {
-        $message = "<p class='success'>Spel succesvol verwijderd.</p>";
+        $message = "<p class='success'>Game successfully deleted.</p>";
     } else {
-        $message = "<p class='error'>Fout bij verwijderen: " . mysqli_error($linkDB) . "</p>";
+        die("<p class='error'>Error deleting game: " . mysqli_error($linkDB) . "</p>");
     }
+
     mysqli_stmt_close($stmt);
 }
 ?>
@@ -80,7 +105,7 @@ if ($adminUser && isset($_GET["delete"])) {
         <button class="menu-toggle">&#9776;</button>
         <ul class="nav-links">
             <li><a href="home.php">Home</a></li>
-            <li><a href="#">Spellen</a></li>
+            <li><a href="#">Spellen</a></li>                    
             <?php if ($ingelogd): ?>
                 <li><a href="SERIALCONNECTION/serialconnection.php">Seriele connectie</a></li>
                 <li><a href="feedback.php">Feedback</a></li>
@@ -96,7 +121,7 @@ if ($adminUser && isset($_GET["delete"])) {
                         <i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($_SESSION["user"]); ?>
                     </span>
                     <div id="dropdown-menu" class="dropdown-content">
-                        <a href="#">Instellingen</a>
+                        <a href="settings.php">Instellingen</a>
                         <a href="LOGIN/logout.php">Uitloggen</a>
                     </div>
                 </div>

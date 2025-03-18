@@ -65,7 +65,7 @@ if ($adminUser && isset($_POST["submit"])) {
                         </span>
                         <div id="dropdown-menu" class="dropdown-content">
                             <!-- TODO: setting pagina -->
-                            <a href="#">Instellingen</a>
+                            <a href="../settings.php">Instellingen</a>
                             <a href="../LOGIN/logout.php">Uitloggen</a>
                         </div>
                     </div>
