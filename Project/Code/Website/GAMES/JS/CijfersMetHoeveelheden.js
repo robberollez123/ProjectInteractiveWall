@@ -156,9 +156,11 @@ function handleButtonClick(number) {
 
     buttons.forEach((button) => (button.disabled = true));
     setTimeout(() => {
-      document.body.style.backgroundColor = "green";
+      document.getElementById("image-container").style.backgroundColor =
+        "green";
       setTimeout(() => {
-        document.body.style.backgroundColor = "#e6f0ff";
+        document.getElementById("image-container").style.backgroundColor =
+          "#e6f0ff";
         restartGame(); // Auto-restart na correct antwoord
       }, 500);
     }, 200);
@@ -172,9 +174,10 @@ function handleButtonClick(number) {
     level = 1; // Reset level bij fout antwoord
     updateScoreDisplay();
 
-    document.body.style.backgroundColor = "red";
+    document.getElementById("image-container").style.backgroundColor = "red";
     setTimeout(() => {
-      document.body.style.backgroundColor = "#e6f0ff";
+      document.getElementById("image-container").style.backgroundColor =
+        "#e6f0ff";
     }, 500);
   }
 }

@@ -144,8 +144,18 @@ mysqli_close($linkDB);
     <p class="error">Dit spel bestaat niet.</p>
 <?php endif; ?>
 
-<footer>&copy; Vives 2025 - Interactive Wall</footer>
-
+    <footer>
+        <div class="footer-links">
+            <p class="copyText">&copy; Vives 2025 - Interactive Wall</p>
+            <div class="links">
+                <p>Links:</p>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Reacties</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 <script src="NAV PAGES/SCRIPTS/nav.js" defer></script>
 </body>
 </html>

@@ -1,40 +1,45 @@
-/* General Styles */
+/* Algemene stijlen */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Arial", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
+/* Navbar container */
 nav {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
   position: sticky;
   top: 0;
-  padding: 20px 20px;
+  z-index: 1000;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  height: 80px; /* Zorg ervoor dat de hoogte van de navbar altijd consistent is */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease;
 }
 
+/* Navbar titel */
 .nav-title {
-  color: #fff;
-  font-size: 30px; /* Kleinere tekst voor de titel */
-  font-weight: bold;
+  color: #333;
+  font-size: 28px;
+  font-weight: 700;
   text-decoration: none;
-  transition: transform 0.3s ease-in-out;
+  transition: color 0.3s ease;
 }
 
 .nav-title:hover {
-  transform: scale(1.05);
+  color: #007bff;
 }
 
+/* Navigatielinks */
 .nav-links {
   list-style: none;
   display: flex;
-  align-items: center; /* Zorgt ervoor dat de menu-items verticaal gecentreerd zijn */
-  gap: 15px; /* Verkleind de ruimte tussen de links */
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-links li {
@@ -43,27 +48,25 @@ nav {
 
 .nav-links a {
   text-decoration: none;
-  color: white;
-  font-size: 20px; /* Kleinere lettergrootte voor de links */
-  padding: 15px 20px; /* Verkleinde padding */
-  border-radius: 8px;
-  position: relative;
+  color: #555;
+  font-size: 18px;
+  padding: 16px 24px;
+  transition: color 0.3s ease, background 0.3s ease;
+  border-radius: 4px;
 }
 
 .nav-links a:hover {
-  background-color: #4e46c1; /* Donkerder violet/blauw tint voor contrast */
-  color: #fff; /* Witte tekst voor betere leesbaarheid */
-  transform: translateY(-2px); /* Kleine beweging bij hover */
-  border-bottom: 3px solid #d1c1ff; /* Zachte lila onderstreping voor een elegante touch */
+  color: #fff;
+  background-color: #007bff;
 }
 
-/* Hamburger Menu */
+/* Hamburger menu knop */
 .menu-toggle {
   display: none;
   background: none;
   border: none;
-  color: white;
-  font-size: 30px;
+  font-size: 28px;
+  color: #333;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -72,11 +75,11 @@ nav {
   transform: rotate(90deg);
 }
 
-/* Responsive Design */
+/* Responsive Design voor kleinere schermen */
 @media (max-width: 768px) {
   nav {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 10px 20px;
   }
 
   .menu-toggle {
@@ -84,13 +87,12 @@ nav {
   }
 
   .nav-links {
-    display: none;
-    flex-direction: column;
     width: 100%;
-    text-align: left;
-    background: #34495e;
-    padding: 10px 0;
-    border-radius: 10px;
+    flex-direction: column;
+    display: none; /* Verborgen, active class toggelt dit */
+    margin-top: 10px;
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
   }
 
   .nav-links.active {
@@ -98,25 +100,12 @@ nav {
   }
 
   .nav-links li {
+    width: 100%;
+    text-align: left;
     padding: 10px 20px;
   }
 
-  .nav-buttons {
-    display: flex;
-    flex-direction: column;
+  .nav-links a {
     width: 100%;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .btn {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-title {
-    font-size: 24px;
   }
 }

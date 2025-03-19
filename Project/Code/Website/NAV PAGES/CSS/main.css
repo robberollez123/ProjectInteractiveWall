@@ -1,27 +1,151 @@
+/* ---------------------------------- */
+/* 1. Root-variabelen voor kleurgebruik en basis */
+/* ---------------------------------- */
+:root {
+  --primary-color: #2575fc; /* Primair accent */
+  --secondary-color: #6a11cb; /* Secundair accent (gradient) */
+  --gradient: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+
+  --bg-color: #fafafa; /* Achtergrondkleur van de pagina */
+  --text-color: #333; /* Standaard tekstkleur */
+  --heading-color: #2c3e50; /* Kleur voor titels/headings */
+
+  --card-bg: #ecf0f1; /* Voor o.a. .stay-updated */
+  --card-hover-bg: #dfe6e9; /* Hoverkleur voor .stay-updated */
+
+  --footer-text-color: #fff; /* Tekstkleur in de footer */
+  --footer-link-hover: #d1d8e0; /* Hoverkleur voor links in de footer */
+}
+
+/* ---------------------------------- */
+/* 2. Algemene pagina-opmaak */
+/* ---------------------------------- */
 html,
 body {
   height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 main {
-  flex: 1;
+  flex: 1; /* Zorgt dat de footer altijd onderaan staat */
+  padding: 20px;
 }
 
+/* ---------------------------------- */
+/* 3. Footer */
+/* ---------------------------------- */
 footer {
-  text-align: center;
-  font-size: 1.2em;
-  background: linear-gradient(
-    135deg,
-    #6a11cb,
-    #2575fc
-  ); /* Mooiere gradient van paars naar blauw */
-  padding: 30px 20px;
-  color: white;
+  display: flex;
+  justify-content: space-between; /* Plaatst de tekst links en de links rechts */
+  align-items: center; /* Centreert de items verticaal */
+  flex-wrap: wrap; /* Zorgt voor nette uitlijning op kleine schermen */
+  background: var(--gradient);
+  padding: 20px 40px;
+  color: var(--footer-text-color);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
 }
-/* Algemene stijl voor de geanimeerde letters */
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.copyText {
+  font-size: 1.3em;
+  color: var(--footer-text-color);
+}
+
+.footer-links h3 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--footer-text-color);
+  margin: 0;
+  white-space: nowrap; /* Zorgt ervoor dat "Nuttige links:" op één regel blijft */
+}
+
+.footer-links h3::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: var(--footer-text-color);
+  margin: 5px auto;
+  border-radius: 2px;
+}
+
+/* De lijst naast de tekst zetten */
+.footer-links ul {
+  display: flex;
+  gap: 15px; /* Ruimte tussen de links */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Stijl van de individuele links */
+.footer-links li {
+  background: rgba(255, 255, 255, 0.1); /* Licht transparante achtergrond */
+  padding: 10px 18px;
+  border-radius: 25px; /* Ronde hoeken */
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links li:hover {
+  background: rgba(255, 255, 255, 0.2); /* Iets lichtere achtergrond */
+  transform: translateY(-2px);
+}
+
+/* Stijl van de links */
+.footer-links a {
+  color: var(--footer-text-color);
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s ease, background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Hover-effect */
+.footer-links a:hover {
+  color: var(--footer-link-hover);
+  text-decoration: underline;
+}
+
+/* Responsieve aanpassing: bij kleinere schermen de links onder elkaar zetten */
+@media (max-width: 768px) {
+  .footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* ---------------------------------- */
+/* 4. Extra elementen en animaties */
+/* ---------------------------------- */
+
+/* Geanimeerde letters */
 .letter {
   display: inline-block;
   opacity: 0;
@@ -29,34 +153,40 @@ footer {
   animation: fadeInUp 0.5s forwards;
 }
 
+/* Copyright / tekst */
+.copyText {
+  text-align: center;
+}
+
+/* 'Stay Updated'-sectie of vergelijkbare CTA-kaarten */
 .stay-updated {
   text-align: center;
   font-size: 1.4rem;
   font-weight: 600;
-  color: #34495e; /* Donkerblauw voor een professionele uitstraling */
-  background-color: #ecf0f1; /* Lichte grijze achtergrond voor een rustige uitstraling */
+  color: var(--heading-color);
+  background-color: var(--card-bg);
   padding: 18px 30px;
-  border-radius: 30px; /* Ronde hoeken voor een zachte uitstraling */
+  border-radius: 30px;
   margin-top: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtiele schaduw voor diepte */
-  width: 90%;
   margin: 10px auto;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
 .stay-updated:hover {
-  background-color: #dfe6e9; /* Lichtere grijs bij hover voor subtiele verandering */
-  color: #2c3e50; /* Donkerder tekstkleur bij hover */
-  transform: translateY(-3px); /* Kleine beweging omhoog bij hover */
+  background-color: var(--card-hover-bg);
+  color: var(--text-color);
+  transform: translateY(-3px);
 }
 
-/* Voeg animatie toe voor de spaties */
+/* Spaties tussen letters */
 .space {
   display: inline-block;
   width: 10px; /* Pas de breedte aan naar wens */
 }
 
-/* Animatie voor letters */
+/* Keyframes voor fadeInUp */
 @keyframes fadeInUp {
   to {
     opacity: 1;

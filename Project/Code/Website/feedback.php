@@ -86,7 +86,16 @@ $adminUser = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1; // Haal a
     </div>
 
     <footer>
-        &copy; Vives 2025 - Interactive Wall
+        <div class="footer-links">
+            <p class="copyText">&copy; Vives 2025 - Interactive Wall</p>
+            <div class="links">
+                <p>Links:</p>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Reacties</a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
     <script src="feedbackscript.js" defer></script>

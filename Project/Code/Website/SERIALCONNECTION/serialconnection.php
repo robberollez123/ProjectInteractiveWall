@@ -108,8 +108,18 @@ if ($adminUser && isset($_POST["submit"])) {
         </div>
     </div>
 </main>
-    <footer>&copy; Vives 2025 - Interactive Wall</footer>
-    <script src="script.js"></script>
+    <footer>
+        <div class="footer-links">
+            <p class="copyText">&copy; Vives 2025 - Interactive Wall</p>
+            <div class="links">
+                <p>Links:</p>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Reacties</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>    <script src="script.js"></script>
     <script src="../NAV PAGES/SCRIPTS/nav.js"></script>
 </body>
 </html>

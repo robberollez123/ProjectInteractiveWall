@@ -83,11 +83,3 @@ body {
     font-size: 2rem; /* Kleinere tekst voor de welkomstboodschap op mobiel */
   }
 }
-
-/* Blijf op de hoogte bericht */
-.stay-updated {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 30px;
-  color: #333;
-}

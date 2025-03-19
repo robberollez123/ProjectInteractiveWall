@@ -130,24 +130,30 @@ $welkomMessage = $ingelogd ? "Welkom, " . $_SESSION["user"] . "!" : "Welkom bij 
     <p class="stay-updated">Blijf op de hoogte en ontdek binnenkort de eerste spelletjes!</p>
 </main>
 
-
-
     <footer>
-        &copy; Vives 2025 - Interactive Wall
+        <div class="footer-links">
+            <p class="copyText">&copy; Vives 2025 - Interactive Wall</p>
+            <div class="links">
+                <p>Links:</p>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Reacties</a></li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
     <script src="NAV PAGES/SCRIPTS/nav.js" defer></script>
     <script>
-document.querySelectorAll('.menu-title').forEach(title => {
-    title.addEventListener('click', function() {
-        const menuItem = this.closest('.menu-item');
-        const longText = menuItem.querySelector('.long-text');
-        
-        // Wissel tussen tonen en verbergen van de lange tekst
-        longText.style.display = (longText.style.display === 'none' || longText.style.display === '') ? 'block' : 'none';
-    });
-});
-
+        document.querySelectorAll('.menu-title').forEach(title => {
+            title.addEventListener('click', function() {
+                const menuItem = this.closest('.menu-item');
+                const longText = menuItem.querySelector('.long-text');
+                
+                // Wissel tussen tonen en verbergen van de lange tekst
+                longText.style.display = (longText.style.display === 'none' || longText.style.display === '') ? 'block' : 'none';
+            });
+        });
     </script>
 </body>
 </html>
